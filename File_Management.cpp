@@ -1,30 +1,30 @@
 #include "File_Management.h"
 
 
-int file_Management::setPath(string input) {
+int File_Management::setPath(string input) {
 
 }
 
-int file_Management::setPlayFilename(string input) {
-
-}
-
-
-int file_Management::setTempFilename(string input) {
+int File_Management::setPlayFilename(string input) {
 
 }
 
 
-string file_Management::getPath() {
+int File_Management::setTempFilename(string input) {
 
 }
 
 
-string file_Management::getPlayFilename() {
+string File_Management::getPath() {
 
 }
 
 
-string file_Management::getTempFilename() {
+string File_Management::getPlayFilename() {
+
+}
+
+
+string File_Management::getTempFilename() {
 
 }

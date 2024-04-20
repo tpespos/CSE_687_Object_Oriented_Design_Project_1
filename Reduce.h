@@ -2,7 +2,8 @@
 
 #pragma once
 #include <string>
-#using std::namespace;
+using std::string;
+//#using std::namespace;
 
 
 class Reduce
