@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-using std::namespace;
+using namespace std;
 
 class File_Management
 {
