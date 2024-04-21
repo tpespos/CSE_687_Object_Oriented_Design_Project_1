@@ -1,36 +1,57 @@
 #pragma once
 
+#include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <string>
+#include <vector>
+#include <sys/stat.h>
+
 using namespace std;
 
 class File_Management
 {
 
 public:
-	int setPath(string input);
 
-	int setPlayFilename(string input);
+	void promptUserForDirectories();
 
-	int setTempFilename(string input);
+	void searchThroughInputDirectory();
 
-	string getPath();
+	void searchThroughIntermediateDirectory();
 
-	string getPlayFilename();
 
-	string getTempFilename();
+
+
+	bool isFileEmpty(const string& filename);
+
+	void exportToFile(const vector<string>& data, const string& filename);
+
+
+
+	vector<string> getInputFiles();
+
+	vector<string> getIntermediateFiles();
 
 
 private:
 
-	//main play text path
-	string path;
-	
-	//main play filename
-	string playFilaname;
-	
-	//temp file for post-map transfer to reduce class
-	string tempFilename;
 
-	
+
+
+
+	string inputFileLocation;
+
+	vector<string> inputFiles;
+
+	string outputFileLocation;
+
+	string intermediateFileLocation;
+
+	vector<string> intermediateFiles;
+
+
+
+
 };
 
