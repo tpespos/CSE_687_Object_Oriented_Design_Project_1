@@ -42,6 +42,11 @@ string File_Management::extractFileName(const string& filePath)
 
 }
 
+int File_Management::getNumberOfInputFiles()
+{
+	return nInputFiles;
+}
+
 
 //================================================================
 //================================================================
@@ -142,6 +147,18 @@ void File_Management::exportMapFile(const vector<string>& data)
 		return;
 	}
 
+	//// Need to buffer
+	//string buff;
+	//int rem = data.size() % 50;
+	//int nLoops = data.size() / 50;
+
+	//for (size_t i = 0; i < nLoops; ++i) {
+	//	buff =  buff + data[i] ;
+	//	if (i != data.size() - 1) {
+	//		file << endl;
+	//	}
+	//}
+
 	for (size_t i = 0; i < data.size(); ++i) {
 		file << data[i];
 		if (i != data.size() - 1) {
@@ -236,6 +253,8 @@ vector<string> File_Management::getInputFiles()
 {
 	searchThroughInputDirectory();
 
+	nInputFiles = inputFiles.size();
+
 	return inputFiles;
 }
 
@@ -266,6 +285,18 @@ void File_Management::searchThroughIntermediateDirectory()
 	}
 
 }
+
+
+void File_Management::setInputFileLocation(string filepath)
+{
+	inputFileLocation = filepath;
+}
+
+void File_Management::setIntermediateFileLocation(string filepath)
+{
+	intermediateFileLocation = filepath;
+}
+
 
 //================================================================
 //================================================================

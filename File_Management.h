@@ -20,14 +20,9 @@ public:
 
 	void searchThroughIntermediateDirectory();
 
-
-
-
 	bool isFileEmpty(const string& filename);
 
 	string extractFileName(const string& filePath);
-
-
 
 	vector<string> importMapFile();
 
@@ -35,34 +30,31 @@ public:
 
 	vector<string> importReduceFile();
 
-
-
 	void exportMapFile(const vector<string>& data);
 
 	void exportSortFile(const vector<string>& data);
 
 	void exportReduceFile(const vector<string>& data);
 
-
-
-
-
-
 	vector<string> getInputFiles();
 
 	vector<string> getIntermediateFiles();
 
+	void setInputFileLocation(string filepath);
 
+	void setIntermediateFileLocation(string filepath);
 
 	void setFileBeingWorked(string filePath);
 
 	string getFileBeingWorked();
 
+	int getNumberOfInputFiles();
+
 private:
 
 	string fileBeingWorked;
 
-
+	int nInputFiles = 0;
 
 	string inputFileLocation;
 
@@ -73,9 +65,6 @@ private:
 	string intermediateFileLocation;
 
 	vector<string> intermediateFiles;
-
-
-
 
 };
 
