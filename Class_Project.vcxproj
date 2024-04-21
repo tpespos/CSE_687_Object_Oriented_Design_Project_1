@@ -132,7 +132,6 @@
     <ClCompile Include="File_Management.cpp" />
     <ClCompile Include="Map_Tokenizer.cpp" />
     <ClCompile Include="Reduce.cpp" />
-    <ClCompile Include="test_Map_Tokenizer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File_Management.h" />

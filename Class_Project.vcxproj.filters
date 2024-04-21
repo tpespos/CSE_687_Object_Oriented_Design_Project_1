@@ -27,9 +27,6 @@
     <ClCompile Include="Reduce.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test_Map_Tokenizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map_Tokenizer.h">

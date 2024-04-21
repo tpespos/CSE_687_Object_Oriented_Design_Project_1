@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 
 
-#include "Map.h"
+#include "Map_Tokenizer.h"
 #include "File_Management.h"
 
 
@@ -18,21 +18,30 @@ int main()
         
     File_Management my_File_Management;
 
-    // Sample text file would look like this        a the is the a
-    // This section happens outside of loop that iterates over all files in the input directory
-    my_File_Management.promptUserForDirectories();
-    vector<string> inputFiles = my_File_Management.getInputFiles();
+    //// Sample text file would look like this        a the is the a
+    //// This section happens outside of loop that iterates over all files in the input directory
+    //my_File_Management.promptUserForDirectories();
+    //vector<string> inputFiles = my_File_Management.getInputFiles();
 
-    // this line needs to be the first line in the loop that iterates over all files in the input directory
-    my_File_Management.setFileBeingWorked(inputFiles[0]);
+    //// this line needs to be the first line in the loop that iterates over all files in the input directory
+    //my_File_Management.setFileBeingWorked(inputFiles[0]);
 
 
     //****************
     // This part happens inside of the Map Class
-    vector<string> Test_Map_Input_Vector = my_File_Management.importMapFile();
+    my_File_Management.setFileBeingWorked("inputFile1.txt");
+    Map_Tokenizer mapTokenizerObj(my_File_Management);
+    
+    //vector<string> Test_Map_Input_Vector = my_File_Management.importMapFile();
+
+    string currentLine = " ode to my poor coding skills! Time to cry...";
+
+    mapTokenizerObj.map(my_File_Management.getFileBeingWorked(), currentLine);
+
+    //vector<string> Test_Map_Input_Vector = my_File_Management.importMapFile();
     // DO WORK
-    vector<string> Test_Map_Output_Vector = { "(“a”, 1)", "(“the”, 1)", "(“is”, 1)", "(“the”, 1)", "(“a”, 1)" };
-    my_File_Management.exportMapFile(Test_Map_Output_Vector);
+    //vector<string> Test_Map_Output_Vector = { "(“a”, 1)", "(“the”, 1)", "(“is”, 1)", "(“the”, 1)", "(“a”, 1)" };
+    //my_File_Management.exportMapFile(Test_Map_Output_Vector);
     //****************
 
 
