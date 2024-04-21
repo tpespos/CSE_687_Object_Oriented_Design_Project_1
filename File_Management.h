@@ -25,7 +25,26 @@ public:
 
 	bool isFileEmpty(const string& filename);
 
-	void exportToFile(const vector<string>& data, const string& filename);
+	string extractFileName(const string& filePath);
+
+
+
+	vector<string> importMapFile();
+
+	vector<string> importSortFile();
+
+	vector<string> importReduceFile();
+
+
+
+	void exportMapFile(const vector<string>& data);
+
+	void exportSortFile(const vector<string>& data);
+
+	void exportReduceFile(const vector<string>& data);
+
+
+
 
 
 
@@ -34,9 +53,13 @@ public:
 	vector<string> getIntermediateFiles();
 
 
+
+	void setFileBeingWorked(string filePath);
+
+
 private:
 
-
+	string fileBeingWorked;
 
 
 

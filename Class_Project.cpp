@@ -12,62 +12,35 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-int DEBUG = 0;
 
 int main()
 {
-
-    if (DEBUG == 1)
-    {
-        string inputFileLocation;
-        string outputFileLocation;
-        string intermediateFileLocation;
-
-        //const char* dir = "C:/Users/tpesp";
-        const char* dir = "C:\\Users\\tpesp\\OneDrive\\Documents\\Masters\\Classes\\4_Spring_2024\\2_Wed_Object_Oriented_Design\\Projects\\Supporting_Folders\\Input_Files";
-        inputFileLocation = "C:\\Users\\tpesp\\OneDrive\\Documents\\Masters\\Classes\\4_Spring_2024\\2_Wed_Object_Oriented_Design\\Projects\\Supporting_Folders\\Input_Files";
-        outputFileLocation = "C:\\Users\\tpesp\\OneDrive\\Documents\\Masters\\Classes\\4_Spring_2024\\2_Wed_Object_Oriented_Design\\Projects\\Supporting_Folders\\Output_Files";
-        intermediateFileLocation = "C:\\Users\\tpesp\\OneDrive\\Documents\\Masters\\Classes\\4_Spring_2024\\2_Wed_Object_Oriented_Design\\Projects\\Supporting_Folders\\Intermediate_Files";
-    
-        struct stat sb;
-
-        // Calls the function with path as argument
-        // If the file/directory exists at the path returns 0
-        // If block executes if path exists
-        const char* dirt = inputFileLocation.c_str();
-
-        if (stat(dirt, &sb) == 0)
-            cout << "The path is valid!\n";
-        else
-            cout << "The Path is invalid!\n";
-
-
         
-        for (const auto& entry : fs::directory_iterator(inputFileLocation)) {
+    File_Management my_File_Management;
 
-            // Converting the path to const char * in the
-            // subsequent lines
-            std::filesystem::path outfilename = entry.path();
-            std::string outfilename_str = outfilename.string();
-            const char* path = outfilename_str.c_str();
+    // Sample text file would look like this
+    // a the is the a
 
-            // Testing whether the path points to a
-            // non-directory or not If it does, displays path
-            if (stat(path, &sb) == 0 && !(sb.st_mode & S_IFDIR))
-                std::cout << path << std::endl;
-        }
-            
-    }
-    else
-    {
-        
-        File_Management my_File_Management;
+    my_File_Management.promptUserForDirectories();
+    vector<string> inputFiles = my_File_Management.getInputFiles();
+    my_File_Management.setFileBeingWorked(inputFiles[0]);
 
-        my_File_Management.promptUserForDirectories();
-    }
+
+    vector<string> Test_Map_Input_Vector = my_File_Management.importMapFile();
+    // DO WORK
+    vector<string> Test_Map_Output_Vector = { "(“a”, 1)", "(“the”, 1)", "(“is”, 1)", "(“the”, 1)", "(“a”, 1)" };
+    my_File_Management.exportMapFile(Test_Map_Output_Vector);
+
+
+    vector<string> Test_Sort_Input_Vector = my_File_Management.importSortFile();
+    // DO WORK
+    vector<string> Test_Sort_Output_Vector = { "(“a”,[1, 1, 1])", "(“the”,[1, 1])", "(“is”,[1])" };
+    my_File_Management.exportSortFile(Test_Sort_Output_Vector);
+
+
+    vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
+    // DO WORK
+    vector<string> Test_Reduce_Output_Vector = { "(“a”,3)", "(“the”,2)", "(“is”,1)" };
+    my_File_Management.exportReduceFile(Test_Reduce_Output_Vector);
     
-
-    Map myMap(5);
-
-    myMap.this_is_DUMB();
 }
