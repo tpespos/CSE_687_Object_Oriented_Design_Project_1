@@ -3,9 +3,12 @@
 // Include all of the built in libraries that will be used here
 #include <vector>
 #include <array>
+#include <string>
 #include <iostream>
 
+#include "File_Management.h"
 // Include all the functions that will be used from the STD namespace here
+using std::string;
 using std::vector;
 using std::array;
 //using std::cout;
@@ -15,21 +18,34 @@ using std::array;
 //============= Map ===================
 //=====================================
 
-// initialize the class function Budget here
-class Map
+class Map_Tokenizer
 {
+
 public:
 
-	Map(int morestuff)
-		: stuff(morestuff)
-	{}
+	Map_Tokenizer(File_Management inputFileObj)
+	{
+		fileObj = inputFileObj;
+		//fileName = inputFileObj.getFileBeingWorked();
+		//lineToBeParsed = lineOftextToBeParsed;
+	}
 
-	//void Test();
+	void map(string fileName, string lineToBeParsed)
+	{
+
+	}
+
+	void export(string word, string value)
+	{
+
+	}
+
 
 	void this_is_DUMB();
 
 private:
 
-	int stuff;
+	File_Management fileObj;
+	string fileName;
 };
 

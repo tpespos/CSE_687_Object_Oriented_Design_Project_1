@@ -24,6 +24,11 @@ void File_Management::setFileBeingWorked(string filePath)
 
 }
 
+string File_Management::getFileBeingWorked()
+{
+	return fileBeingWorked;
+}
+
 
 //================================================================
 //================================================================

@@ -18,7 +18,7 @@
     <ClCompile Include="Class_Project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="Map_Tokenizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="File_Management.cpp">
@@ -27,9 +27,12 @@
     <ClCompile Include="Reduce.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test_Map_Tokenizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Map.h">
+    <ClInclude Include="Map_Tokenizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="File_Management.h">

@@ -56,6 +56,7 @@ public:
 
 	void setFileBeingWorked(string filePath);
 
+	string getFileBeingWorked();
 
 private:
 
