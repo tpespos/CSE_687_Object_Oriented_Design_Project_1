@@ -27,6 +27,9 @@
     <ClCompile Include="Reduce.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sorting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -38,5 +41,16 @@
     <ClInclude Include="Reduce.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sorting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="IntermediateSample.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="ReduceSample.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
