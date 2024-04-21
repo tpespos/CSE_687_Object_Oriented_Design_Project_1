@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "Map_Tokenizer.h"
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -10,7 +10,7 @@ void Map::Test()
 }
 */
 
-void Map::this_is_DUMB()
+void Map_Tokenizer::this_is_DUMB()
 {
 	cout << "\nAAAAAAAAAAAAAA\n";
 }
