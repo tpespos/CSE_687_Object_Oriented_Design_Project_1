@@ -11,15 +11,18 @@ using namespace std;
 
 class Reduce
 {
+
+public:
 	//constructor
+	Reduce();
 	Reduce(File_Management files);
 
 	//destructor
 
-public:
+
 	//methods
 	int reduceWrapper();
-	int loadDataFromFile(string inputFileName);
+	int loadDataFromFile();
 	int reduce(string inputLine, string* outputString, int* outputCount);
 	int exportFunction(string key, int reducedValue);
 	int writeBufferToSysAndClear();
