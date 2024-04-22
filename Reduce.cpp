@@ -1,19 +1,24 @@
 #include "Reduce.h"
+#include "File_Management.h"
 
+
+Reduce::Reduce() {
+	//do nothing
+}
 
 
 Reduce::Reduce(File_Management files) {
-
+	fileManagerUpdate(files);
 }
 
 int Reduce::fileManagerUpdate(File_Management newFileManeger) {
 	fileManager = newFileManeger;
-	inputFileName = fileManager.getIntermediateFiles()[0];
-	return 1;
+	inputFileName = fileManager.getFileBeingWorked();
+	return 0;
 }
 
 int Reduce::reduceWrapper() {
-	
+	/*
 	if (DEBUG==1)	{
 		
 		inputFileText.push_back("(“a”, [1, 1, 1])");
@@ -21,9 +26,11 @@ int Reduce::reduceWrapper() {
 		inputFileText.push_back("(“is”, [1, 1])");
 	}
 	else	{
-		loadDataFromFile(inputFileName);
+		
 	}
-	
+	//*/
+	loadDataFromFile();
+
 	//inputstring...get one line
 	for (int i = 0; i < inputFileText.size(); i++)	{
 		//intputstring into reduce
@@ -34,11 +41,13 @@ int Reduce::reduceWrapper() {
 		//reduced line into output buffer
 		exportFunction(tempString, tempCount);
 
-		if (bufferToOutput.size() > 5000)		{
+		if (bufferToOutput.size() > 500000)		{
 			//buffer to save
-			writeSuccessToFile();
+			writeBufferToSysAndClear();
 		}
 	}
+	
+	writeBufferToSysAndClear();
 	//write success
 	writeSuccessToFile();
 	return 0;
@@ -51,8 +60,8 @@ int Reduce::reduce(string inputLine, string* outputString, int* outputCount) {
 	//find first and last "
 	int firstQuote = 0;
 	int lastQuote = 0;
-	firstQuote = inputLine.find_first_of("""");
-	lastQuote = inputLine.find_last_of("""");
+	firstQuote = inputLine.find_first_of("“");
+	lastQuote = inputLine.find_last_of("”");
 
 	//that is output string
 	string word = inputLine.substr(firstQuote+1, lastQuote-firstQuote-1);
@@ -77,19 +86,20 @@ int Reduce::reduce(string inputLine, string* outputString, int* outputCount) {
 	return 0;
 }
 
-int Reduce::loadDataFromFile(string inputFileName) {
-	//???? what to write vs tommys code
+int Reduce::loadDataFromFile() {
+	inputFileText = fileManager.importReduceFile();
 	return 0;
 }
 
 int Reduce::exportFunction(string key, int reducedValue) {
-	string rowToAdd = "(""" + key + """,[" + to_string(reducedValue) + "])";	
+	string rowToAdd = "(“" + key + "”,[" + to_string(reducedValue) + "])";	
 	bufferToOutput.push_back(rowToAdd);
 	return 0;
 }
 
 int Reduce::writeBufferToSysAndClear() {
 	//use file IO to write buffer
+	fileManager.exportReduceFile(bufferToOutput);
 
 	bufferToOutput.clear();
 	return 0;
