@@ -4,6 +4,7 @@
 // CSE 687 Object Oriented Design
 
 #include <iostream> // debug purposes
+#include "File_Management.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -21,7 +22,7 @@ public:
 	Sort();
 
 	// Sort constructor with one parameter
-	Sort(vector<string> input_vec);
+	Sort(File_Management my_File_Management);
 
 	// member function to sort input vector of strings
 	void sortInput();
@@ -30,34 +31,35 @@ public:
 	vector<string> getOutput();
 
 private:
-	// member function to set input vector
+	// ** Helper Functions **
+	// set input vector
 	void setInput(vector<string> inc);
 
-	// member function to increase the value of count by 1
+	// increase the value of count by 1
 	void countUp();
 
-	// member function to reset the value of count to zero
+	// reset the value of count to zero
 	void countReset();
 
-	// member function to increase the value of element by 1
+	// increase the value of element by 1
 	void incrementElement();
 
-	// member function to store the current element of the input vector
+	// store the current element of the input vector
 	void setCurrent();
 
-	// member function to count the number of times word appears in the input vector
+	// count the number of times word appears in the input vector
 	void compare();
 
-	// member function to check if the current word is already in the output vector
+	// check if the current word is already in the output vector
 	bool checkIfCounted();
 
-	// member function to create reduced element
+	// create reduced element
 	string getNewStr();
 
-	// member function to return token from current element of the input vector
+	// return token from current element of the input vector
 	string tokenize(string original);
 
-	// Member Data
+	// ** Member Data **
 	int count; // stores the number of times a word appears in a vector
 	int element; // stores the element number of the input vector currently being used
 	string current; // stores the current string from the input vector

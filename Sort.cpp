@@ -14,11 +14,12 @@ Sort::Sort()
 }
 
 // Sort constructor with one parameter
-Sort::Sort(vector<string> input_vec)
+Sort::Sort(File_Management fileManager)
 	: count{ 0 }, element{ 0 }
 {
-	Sort::setInput(input_vec); // store input vector
-	Sort::setCurrent();	// store first element of input vector
+	Sort::setInput(fileManager.importSortFile()); // store input vector
+	Sort::sortInput();	// store first element of input vector
+	fileManager.exportSortFile(Sort::getOutput()); // export the sorted intermediate file
 }
 
 // member function to set input vector
@@ -75,7 +76,8 @@ bool Sort::checkIfCounted() {
 string Sort::getNewStr() {
 	string openPar = "(";
 	string closePar = ")";
-	string quote = "\"";
+	string openQuote = "“";
+	string closeQuote = "”";
 	string comma = ",";
 	string leftBrack = "[1";
 	string rightBrack = "]";
@@ -88,7 +90,7 @@ string Sort::getNewStr() {
 	}
 
 	// assemble new string in reduced format
-	string new_str = openPar + quote + tokenize(current) + quote + comma + leftBrack + temp + rightBrack + closePar;
+	string new_str = openPar + openQuote + tokenize(current) + closeQuote + comma + leftBrack + temp + rightBrack + closePar;
 	return new_str;
 };
 
@@ -98,7 +100,7 @@ string Sort::tokenize(string original) {
 	vector<string> tokens;
 	string temp_str;
 
-	while (getline(ss, temp_str, '\"')) { // use doulbe quotes as delimiter
+	while (getline(ss, temp_str, '\"')) { // use double quotes as delimiter
 		tokens.push_back(temp_str);
 	}
 	return tokens[1]; // return second element of token vector (should be the word from source text)

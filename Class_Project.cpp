@@ -4,7 +4,7 @@
 #include <vector>
 #include <sys/stat.h>
 
-
+#include "Sort.h"
 #include "Map_Tokenizer.h"
 #include "File_Management.h"
 #include "Reduce.h"
@@ -49,10 +49,11 @@ int main()
 
     //################
     // This part happens inside of the Sort Class
-    vector<string> Test_Sort_Input_Vector = my_File_Management.importSortFile();
-    // DO WORK
-    vector<string> Test_Sort_Output_Vector = { "(“a”,[1, 1, 1])", "(“the”,[1, 1])", "(“is”,[1])" };
-    my_File_Management.exportSortFile(Test_Sort_Output_Vector);
+    //vector<string> Test_Sort_Input_Vector = my_File_Management.importSortFile();
+    //// DO WORK
+    Sort test_sort_class(my_File_Management);
+    //vector<string> Test_Sort_Output_Vector = { "(“a”,[1, 1, 1])", "(“the”,[1, 1])", "(“is”,[1])" };
+    //my_File_Management.exportSortFile(Test_Sort_Output_Vector);
     //################
 
 
