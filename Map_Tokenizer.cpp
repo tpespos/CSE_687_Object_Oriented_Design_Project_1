@@ -6,18 +6,6 @@ Map_Tokenizer::Map_Tokenizer(File_Management inputFileObj)
 	fileObj = inputFileObj;
 }
 
-void Map_Tokenizer::parseLines()
-{
-	vector<string> fileParsedLineVector = fileObj.importMapFile();
-	string fileName = fileObj.getFileBeingWorked();
-
-	for (int i = 0; i < fileParsedLineVector.size(); i++)
-	{
-		map(fileName, fileParsedLineVector[i]);
-	}
-
-}
-
 void Map_Tokenizer::map(string fileName, string lineToBeParsed)
 {
 

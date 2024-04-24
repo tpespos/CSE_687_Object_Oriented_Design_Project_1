@@ -19,8 +19,6 @@ public:
 
 	Map_Tokenizer(File_Management inputFileObj);
 
-	void parseLines();
-
 	void map(string fileName, string lineToBeParsed);
 
 private:

@@ -54,7 +54,16 @@ int workflow()
 
         // Map
         Map_Tokenizer mapTokenizerObj(my_File_Management);
-        mapTokenizerObj.parseLines();
+        vector<string> fileParsedLineVector = my_File_Management.importMapFile();
+        string fileName = my_File_Management.getFileBeingWorked();
+        for (int i = 0; i < fileParsedLineVector.size(); i++)
+        {
+            mapTokenizerObj.map(fileName, fileParsedLineVector[i]);
+        }
+
+   
+
+
 
         // Sort
 
