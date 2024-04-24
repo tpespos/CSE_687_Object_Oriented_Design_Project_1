@@ -106,23 +106,23 @@ vector<string> File_Management::importSortFile()
 
 vector<string> File_Management::importMapFile() 
 {
-	vector<string> words;
+	vector<string> lines;
 	string inputFilePath = inputFileLocation;
 	string filepath = inputFilePath.append("\\").append(fileBeingWorked);
 
 	ifstream file(filepath);
 	if (!file.is_open()) {
 		cerr << "Failed to open file for reading." << endl;
-		return words;
+		return lines;
 	}
 
-	string word;
-	while (file >> word) {
-		words.push_back(word);
+	string line;
+	while (getline(file, line)) {
+		lines.push_back(line);
 	}
 
 	file.close();
-	return words;
+	return lines;
 }
 
 //================================================================
