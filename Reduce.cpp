@@ -60,8 +60,8 @@ int Reduce::reduce(string inputLine, string* outputString, int* outputCount) {
 	//find first and last "
 	int firstQuote = 0;
 	int lastQuote = 0;
-	firstQuote = inputLine.find_first_of("“");
-	lastQuote = inputLine.find_last_of("”");
+	firstQuote = inputLine.find_first_of("\"");
+	lastQuote = inputLine.find_last_of("\"");
 
 	//that is output string
 	string word = inputLine.substr(firstQuote+1, lastQuote-firstQuote-1);
