@@ -47,8 +47,9 @@ int workflow()
 
     vector<string> inputFiles = my_File_Management.getInputFiles();
 
+    //my_File_Management.getNumberOfInputFiles()
     // loop though each input file
-    for (int i = 0; i < my_File_Management.getNumberOfInputFiles(); i++)
+    for (int i = 0; i < 1; i++)
     {
         my_File_Management.setFileBeingWorked(inputFiles[i]);
 
@@ -62,7 +63,8 @@ int workflow()
         }
 
         // Sort
-        //Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
+        Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
+        sortObj.runSort();
         
         // Reduce
         //Reduce reduceObj(my_File_Management);
