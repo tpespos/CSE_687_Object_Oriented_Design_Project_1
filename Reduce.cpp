@@ -106,7 +106,7 @@ int Reduce::writeBufferToSysAndClear() {
 }
 
 int Reduce::writeSuccessToFile() {
-	//write "success.txt" as a file using file class
+	fileManager.outputSuccessFile();
 	return 0;
 }
 
