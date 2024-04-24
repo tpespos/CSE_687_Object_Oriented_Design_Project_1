@@ -36,6 +36,7 @@ int Reduce::reduceWrapper() {
 		//intputstring into reduce
 		string tempString;
 		int tempCount;
+		//cout << "inputing files\n";
 		reduce(inputFileText[i],&tempString, &tempCount);
 
 		//reduced line into output buffer
@@ -43,6 +44,7 @@ int Reduce::reduceWrapper() {
 
 		if (bufferToOutput.size() > 500000)		{
 			//buffer to save
+			//cout << "exportingfiles\n";
 			writeBufferToSysAndClear();
 		}
 	}

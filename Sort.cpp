@@ -28,7 +28,7 @@ void Sort::runSort() {
 	sortInput();
 	currentSortFile.exportSortFile(output);
 }
-
+/*
 // member function to set input vector (not used with updates to File_Management)
 void Sort::setInput(vector<string> inc) {
 	input = inc;
@@ -119,11 +119,47 @@ string Sort::tokenize(string original) {
 	return tokens[1]; // return second element of token vector (should be the word from source text)
 };
 
+//*/
+
+string Sort::extractAndPrepareString(string inputStringExended, int inputCount) {
+
+	int firstQuote = 0;
+	int lastQuote = 0;
+	firstQuote = inputStringExended.find_first_of("\"");
+	lastQuote = inputStringExended.find_last_of("\"");
+
+	//that is output string
+	string word = inputStringExended.substr(firstQuote + 1, lastQuote - firstQuote - 1);
+
+	string rowToAdd = "(\"" + word + "\", [1";
+	for (int i = 1; i < inputCount; i++)	{
+		rowToAdd += ", 1";
+	}
+	rowToAdd += "])";
+
+	return rowToAdd;
+}
+
 // member function to sort input vector of strings
 void Sort::sortInput() {
+	
+	sort(input.begin(), input.end());
+	int numberOfWords = 0;
+	for (int i = 0; i < input.size()-1; i++)	{
+		numberOfWords++;
+		if (input[i]!=input[i+1])		{
+			output.push_back(extractAndPrepareString(input[i], numberOfWords));
+			numberOfWords = 0;
+		}
+	}
+
+
+	/*
+
 	for (int i = 0; i < input.size(); i++) {
-		countReset();
+		//countReset();
 		setCurrent();
+		cout << count << "   " << current << "\n";
 		bool check = checkIfCounted();
 		if (check == false) {
 			compare();
@@ -131,6 +167,7 @@ void Sort::sortInput() {
 		}
 		incrementElement();
 	}
+	//*/
 };
 
 // member function to get the sorted output vector

@@ -61,16 +61,19 @@ int workflow()
     Reduce myReducer;
 
     // Commenting out for testing
-    //my_File_Management.promptUserForDirectories();
-    //vector<string> inputFiles = my_File_Management.getInputFiles();
+    my_File_Management.promptUserForDirectories();
+    vector<string> inputFiles = my_File_Management.getInputFiles();
 
     // hardcodeing for testing (change to your local file location to quick testing)
-    string filepath1 = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\shakespeare";
-    string filepath2 = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\interFileLoc";
+    /*
+    string filepath1 = "C:\\Users\\lande\\OneDrive\\Documents\\!Masters\\shakespeare";
+    string filepath2 = "C:\\Users\\lande\\OneDrive\\Documents\\!Masters\\shakespeare\\interm";
+    string filepath3 = "C:\\Users\\lande\\OneDrive\\Documents\\!Masters\\shakespeare\\interm";
     my_File_Management.setInputFileLocation(filepath1);
     my_File_Management.setIntermediateFileLocation(filepath2);
-
+    
     vector<string> inputFiles = my_File_Management.getInputFiles();
+    //*/
 
     // loop though each input file
     for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
@@ -88,13 +91,18 @@ int workflow()
         }
         mapTokenizerObj.writeTofile();
 
+        
+
         toc();
         // Sort
-        //Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
-        //sortObj.runSort();
+        cout << "entering sort\n";
+        Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
+        sortObj.runSort();
         
         // Reduce
-        //Reduce reduceObj(my_File_Management);
+        cout << "entering reduce\n";
+        Reduce reduceObj(my_File_Management);
+        reduceObj.reduceWrapper();
         //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
 
 

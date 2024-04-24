@@ -33,6 +33,8 @@ public:
 	// member function to get the sorted output vector
 	vector<string> getOutput();
 
+	string extractAndPrepareString(string inputStringExended, int inputCount);
+
 private:
 	// ** Helper Functions **
 	// set input vector
