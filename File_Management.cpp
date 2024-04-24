@@ -56,7 +56,7 @@ vector<string> File_Management::importReduceFile()
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Sort.txt");
+	string filepath = intermediateFilePath.append("\\").append(fileBeingWorked);
 	ifstream file(filepath);
 	if (!file.is_open()) {
 		cerr << "Failed to open file for reading." << endl;
@@ -82,7 +82,7 @@ vector<string> File_Management::importSortFile()
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Map.txt");
+	string filepath = intermediateFilePath.append("\\").append(fileBeingWorked);
 	ifstream file(filepath);
 	if (!file.is_open()) {
 		cerr << "Failed to open file for reading." << endl;
@@ -133,7 +133,7 @@ void File_Management::exportMapFile(const vector<string>& data)
 {
 	ofstream file;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Map.txt");
+	string filepath = intermediateFilePath.append("\\").append(fileBeingWorked);
 	if (isFileEmpty(filepath)) {
 		file.open(filepath);
 	}
@@ -177,7 +177,7 @@ void File_Management::exportSortFile(const vector<string>& data)
 {
 	ofstream file;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Sort.txt");
+	string filepath = intermediateFilePath.append("\\").append(fileBeingWorked);
 	if (isFileEmpty(filepath)) {
 		file.open(filepath);
 	}
