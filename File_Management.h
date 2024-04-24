@@ -50,6 +50,8 @@ public:
 
 	int getNumberOfInputFiles();
 
+	void outputSuccessFile();
+
 private:
 
 	string fileBeingWorked;

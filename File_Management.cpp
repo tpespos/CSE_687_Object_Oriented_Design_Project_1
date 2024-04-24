@@ -237,6 +237,21 @@ void File_Management::exportReduceFile(const vector<string>& data)
 //================================================================
 //================================================================
 
+void File_Management::outputSuccessFile()
+{
+	ofstream file;
+	string outputFilePath = outputFileLocation;
+	string filepath = outputFilePath.append("\\").append("SUCCESS.txt");
+	file.open(filepath);
+
+	file.close();
+
+}
+
+//================================================================
+//================================================================
+//================================================================
+
 
 // check the first charicter of the file, and check if it's the end of file character
 bool File_Management::isFileEmpty(const string& filename) 
