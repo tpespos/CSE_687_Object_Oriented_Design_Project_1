@@ -69,5 +69,5 @@ private:
 	vector<string> input; // stores incoming vector to sort
 	vector<string> output; // stores the new outgoing vector with elements in the reduced format
 	File_Management currentSortFile; // stores local copy of file management object
+	vector<string> debug; // stores a test vector of strings for debugging
 };
-
