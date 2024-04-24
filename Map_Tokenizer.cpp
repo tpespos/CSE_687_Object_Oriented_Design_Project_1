@@ -21,7 +21,7 @@ void Map_Tokenizer::map(string fileName, string lineToBeParsed)
 		if (temp_str.empty()) continue;
 		removeNonLetterCharacters(temp_str);
 		changeAllUpperCaseToLowerCase(temp_str);
-		exportMap(temp_str, 1);
+		if(!temp_str.empty()) exportMap(temp_str, 1);
 		wordCount++;
 	}
 	if (wordCount > 1000)
