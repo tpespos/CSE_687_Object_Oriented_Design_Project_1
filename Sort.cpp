@@ -10,19 +10,24 @@
 Sort::Sort()
 	: count{ 0 }, element{ 0 }
 {
-	// add error message
+	// empty body (add error message)
 }
 
 // Sort constructor with one parameter
 Sort::Sort(File_Management fileManager)
 	: count{ 0 }, element{ 0 }
 {
-	Sort::setInput(fileManager.importSortFile()); // store input vector
-	Sort::sortInput();	// store first element of input vector
-	fileManager.exportSortFile(Sort::getOutput()); // export the sorted intermediate file
+	currentSortFile = fileManager; // copy file management obj to member data obj
 }
 
-// member function to set input vector
+// Wrapper function to execute sort
+void Sort::runSort() {
+	input = currentSortFile.importSortFile(); // store input vector
+	sortInput();
+	currentSortFile.exportSortFile(output);
+}
+
+// member function to set input vector (not used with updates to File_Management)
 void Sort::setInput(vector<string> inc) {
 	input = inc;
 };

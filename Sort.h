@@ -24,6 +24,9 @@ public:
 	// Sort constructor with one parameter
 	Sort(File_Management my_File_Management);
 
+	// Wrapper function to execute sort
+	void runSort();
+
 	// member function to sort input vector of strings
 	void sortInput();
 
@@ -64,5 +67,6 @@ private:
 	int element; // stores the element number of the input vector currently being used
 	string current; // stores the current string from the input vector
 	vector<string> input; // stores incoming vector to sort
-	vector<string> output; // stores the new outgoing vector with elements in the reduced format 
+	vector<string> output; // stores the new outgoing vector with elements in the reduced format
+	File_Management currentSortFile; // stores local copy of file management object
 };
