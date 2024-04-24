@@ -64,11 +64,11 @@ vector<string> Map_Tokenizer::buildTempMapVector(vector<string> tokens)
 
 	for (int i = 0; i < tokens.size(); i++)
 	{
-		int count = 0;
-		while (((i + count) < tokens.size()) && (tokens[i] == tokens[i + count]))
-		{
-			count++;
-		}
+		//int count = 0;
+		//while (((i + count) < tokens.size()) && (tokens[i] == tokens[i + count]))
+		//{
+		//	count++;
+		//}
 		//string temp = openPar + quote + tokens[i] + quote +
 		//			  comma + to_string(count) + closePar;
 
@@ -76,7 +76,7 @@ vector<string> Map_Tokenizer::buildTempMapVector(vector<string> tokens)
 			comma + "1" + closePar;
 
 		output.push_back(temp);
-		i = i + count - 1;
+		//i = i + count - 1;
 	}
 	return output;
 }
