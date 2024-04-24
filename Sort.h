@@ -70,3 +70,4 @@ private:
 	vector<string> output; // stores the new outgoing vector with elements in the reduced format
 	File_Management currentSortFile; // stores local copy of file management object
 };
+

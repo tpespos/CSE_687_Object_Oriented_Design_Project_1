@@ -9,6 +9,31 @@
 #include "File_Management.h"
 #include "Reduce.h"
 
+// temp testing functions
+#include <iostream>
+#include <ctime>
+
+// Globals
+clock_t start_time; // Global for tic-toc functions
+char cwd[4096]; // Global for get current Dir
+
+// Function Definitions
+
+void tic(void) {
+
+    start_time = clock();
+
+}
+
+void toc() {
+
+    clock_t t = clock();
+    t = t - start_time;
+    double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
+    printf("This code block took %f seconds to execute \n", time_taken);
+
+}
+
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -47,10 +72,10 @@ int workflow()
 
     vector<string> inputFiles = my_File_Management.getInputFiles();
 
-    //my_File_Management.getNumberOfInputFiles()
     // loop though each input file
-    for (int i = 0; i < 1; i++)
+    for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
     {
+        tic();
         my_File_Management.setFileBeingWorked(inputFiles[i]);
 
         // Map
@@ -61,10 +86,12 @@ int workflow()
         {
             mapTokenizerObj.map(fileName, fileParsedLineVector[i]);
         }
+        mapTokenizerObj.writeTofile();
 
+        toc();
         // Sort
-        Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
-        sortObj.runSort();
+        //Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
+        //sortObj.runSort();
         
         // Reduce
         //Reduce reduceObj(my_File_Management);

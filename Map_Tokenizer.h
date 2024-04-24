@@ -17,6 +17,8 @@ public:
 
 	void map(string fileName, string lineToBeParsed);
 
+	void writeTofile();
+
 private:
 
 	File_Management fileObj;
@@ -31,6 +33,5 @@ private:
 
 	void exportMap(string word, int value);
 
-	void writeTofile();
 };
 
