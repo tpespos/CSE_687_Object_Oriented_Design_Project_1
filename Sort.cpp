@@ -18,11 +18,13 @@ Sort::Sort(File_Management fileManager)
 	: count{ 0 }, element{ 0 }
 {
 	currentSortFile = fileManager; // copy file management obj to member data obj
+	//debug = { "(\"act\",1)", "(\"i\",1)", "(\"counts\",1)", "(\"i\",1)" };
 }
 
 // Wrapper function to execute sort
 void Sort::runSort() {
 	input = currentSortFile.importSortFile(); // store input vector
+	//input = debug; // ******** DEBUG *********
 	sortInput();
 	currentSortFile.exportSortFile(output);
 }
@@ -81,8 +83,10 @@ bool Sort::checkIfCounted() {
 string Sort::getNewStr() {
 	string openPar = "(";
 	string closePar = ")";
-	string openQuote = "“";
-	string closeQuote = "”";
+	// string openQuote = "“";
+	// string closeQuote = "”";
+	string openQuote = "\"";
+	string closeQuote = "\"";
 	string comma = ",";
 	string leftBrack = "[1";
 	string rightBrack = "]";
@@ -105,9 +109,13 @@ string Sort::tokenize(string original) {
 	vector<string> tokens;
 	string temp_str;
 
+	//std::cin.clear(); // clear buffer
 	while (getline(ss, temp_str, '\"')) { // use double quotes as delimiter
 		tokens.push_back(temp_str);
+		//std::cin.clear(); // clear buffer
+		//cout << temp_str; // ********** DEBUG ***********
 	}
+
 	return tokens[1]; // return second element of token vector (should be the word from source text)
 };
 
