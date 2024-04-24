@@ -90,7 +90,7 @@ int workflow(File_Management my_File_Management)
         reduceObj.reduceWrapper();
         //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
 
-        std::cout << "Loop " << i << " complete.\n";
+        std::cout << "File " << i << " complete.\n";
 
     }
 
