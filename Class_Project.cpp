@@ -78,7 +78,7 @@ int workflow()
     // loop though each input file
     for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
     {
-        tic();
+        //tic();
         my_File_Management.setFileBeingWorked(inputFiles[i]);
 
         // Map
@@ -91,16 +91,14 @@ int workflow()
         }
         mapTokenizerObj.writeTofile();
 
-        
-
-        toc();
+        //toc();
         // Sort
-        cout << "entering sort\n";
+        //cout << "entering sort\n";
         Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
         sortObj.runSort();
         
         // Reduce
-        cout << "entering reduce\n";
+        //cout << "entering reduce\n";
         Reduce reduceObj(my_File_Management);
         reduceObj.reduceWrapper();
         //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
