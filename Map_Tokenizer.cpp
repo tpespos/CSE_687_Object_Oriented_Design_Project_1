@@ -1,5 +1,7 @@
 #include "Map_Tokenizer.h"
 
+#include <iostream>
+#include <sstream>
 
 Map_Tokenizer::Map_Tokenizer(File_Management inputFileObj)
 {

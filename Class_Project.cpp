@@ -61,40 +61,18 @@ int workflow()
             mapTokenizerObj.map(fileName, fileParsedLineVector[i]);
         }
 
-   
-
-
-
         // Sort
-
-
+        //Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
+        
         // Reduce
+        //Reduce reduceObj(my_File_Management);
+        //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
+
 
 
         std::cout << "Loop " << i << " complete.\n";
 
     }
-
-    //################
-    // This part happens inside of the Sort Class
-    //vector<string> Test_Sort_Input_Vector = my_File_Management.importSortFile();
-    //// DO WORK
-    //Sort test_sort_class(my_File_Management);
-    //vector<string> Test_Sort_Output_Vector = { "(“a”,[1, 1, 1])", "(“the”,[1, 1])", "(“is”,[1])" };
-    //my_File_Management.exportSortFile(Test_Sort_Output_Vector);
-    //################
-
-
-    //@@@@@@@@@@@@@@@@
-    // This part happens inside of the Reduce Class
-    //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
-    // DO WORK
-    //myReducer.fileManagerUpdate(my_File_Management);
-    //myReducer.reduceWrapper();
-
-    //vector<string> Test_Reduce_Output_Vector = { "(“a”,3)", "(“the”,2)", "(“is”,1)" };
-    //my_File_Management.exportReduceFile(Test_Reduce_Output_Vector);
-    //@@@@@@@@@@@@@@@@
 
     return 0;
 

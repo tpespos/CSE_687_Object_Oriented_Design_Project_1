@@ -1,16 +1,12 @@
 #pragma once
 
-#include <vector>
-#include <array>
-#include <string>
-#include <iostream>
-#include <sstream>
-
 #include "File_Management.h"
+
+#include <vector>
+#include <string>
 
 using std::string;
 using std::vector;
-using std::array;
 
 class Map_Tokenizer
 {
