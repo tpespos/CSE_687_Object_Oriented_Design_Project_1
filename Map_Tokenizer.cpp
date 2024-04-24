@@ -15,25 +15,16 @@ void Map_Tokenizer::map(string fileName, string lineToBeParsed)
 	vector<string> tokens;
 	string temp_str;
 	vector<int> count;
+	wordBuffer.clear();
+	valueBuffer.clear();
 
 	while (getline(ss, temp_str, ' ')) { //use comma as delim for cutting string
 		if (temp_str.empty()) continue;
 		removeNonLetterCharacters(temp_str);
 		changeAllUpperCaseToLowerCase(temp_str);
-		tokens.push_back(temp_str);
+		exportMap(temp_str, 1);
 	}
-
-	/*for (int i = 0; i < tokens.size(); i++) {
-		cout << tokens[i] << endl;
-	}*/
-
-	vector<string> outputVector = buildTempMapVector(tokens);
-
-	/*for (int i = 0; i < outputVector.size(); i++) {
-		cout << outputVector[i] << endl;
-	}*/
-
-	fileObj.exportMapFile(outputVector);
+	writeTofile();
 
 }
 void Map_Tokenizer::removeNonLetterCharacters(string& inputString)
@@ -87,3 +78,16 @@ vector<string> Map_Tokenizer::buildTempMapVector(vector<string> tokens)
 	}
 	return output;
 }
+
+void Map_Tokenizer::exportMap(string word, int value)
+{
+	wordBuffer.push_back(word);
+	valueBuffer.push_back(value);
+}
+
+void Map_Tokenizer::writeTofile()
+{
+	vector<string> outputVector = buildTempMapVector(wordBuffer);
+	fileObj.exportMapFile(outputVector);
+}
+

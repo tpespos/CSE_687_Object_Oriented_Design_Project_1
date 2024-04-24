@@ -20,6 +20,8 @@ public:
 private:
 
 	File_Management fileObj;
+	vector<string> wordBuffer;
+	vector<int> valueBuffer;
 
 	void removeNonLetterCharacters(string& inputString);
 
@@ -27,5 +29,8 @@ private:
 
 	vector<string> buildTempMapVector(vector<string> tokens);
 
+	void exportMap(string word, int value);
+
+	void writeTofile();
 };
 
