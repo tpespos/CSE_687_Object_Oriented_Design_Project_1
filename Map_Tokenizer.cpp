@@ -15,19 +15,19 @@ void Map_Tokenizer::map(string fileName, string lineToBeParsed)
 	vector<string> tokens;
 	string temp_str;
 	vector<int> count;
-	int wordCount = 0;
+	//int wordCount = 0;
 	
 	while (getline(ss, temp_str, ' ')) { //use comma as delim for cutting string
 		if (temp_str.empty()) continue;
 		removeNonLetterCharacters(temp_str);
 		changeAllUpperCaseToLowerCase(temp_str);
 		if(!temp_str.empty()) exportMap(temp_str, 1);
-		wordCount++;
+		//wordCount++;
 	}
-	if (wordCount > 1000)
+	/*if (wordCount > 1000)
 	{
 		writeTofile();
-	}
+	}*/
 }
 void Map_Tokenizer::removeNonLetterCharacters(string& inputString)
 {
