@@ -18,14 +18,16 @@ void Map_Tokenizer::map(string fileName, string lineToBeParsed)
 	wordBuffer.clear();
 	valueBuffer.clear();
 
-	while (getline(ss, temp_str, ' ')) { //use comma as delim for cutting string
-		if (temp_str.empty()) continue;
-		removeNonLetterCharacters(temp_str);
-		changeAllUpperCaseToLowerCase(temp_str);
-		exportMap(temp_str, 1);
+	if (lineToBeParsed.length() > 0)
+	{
+		while (getline(ss, temp_str, ' ')) { //use comma as delim for cutting string
+			if (temp_str.empty()) continue;
+			removeNonLetterCharacters(temp_str);
+			changeAllUpperCaseToLowerCase(temp_str);
+			exportMap(temp_str, 1);
+		}
+		writeTofile();
 	}
-	writeTofile();
-
 }
 void Map_Tokenizer::removeNonLetterCharacters(string& inputString)
 {
