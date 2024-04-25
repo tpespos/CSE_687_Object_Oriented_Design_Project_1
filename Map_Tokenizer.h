@@ -27,6 +27,8 @@ private:
 
 	void removeNonLetterCharacters(string& inputString);
 
+	void blankNonLetterCharacters(string& inputString);
+
 	void changeAllUpperCaseToLowerCase(string& inputString);
 
 	vector<string> buildTempMapVector(vector<string> tokens);
