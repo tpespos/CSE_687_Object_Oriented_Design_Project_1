@@ -96,7 +96,7 @@ void exportMap(string filename, string word, int value)
 		wordBuffer.push_back(word);
 		valueBuffer.push_back(value);
 	}
-	if ((value == -1) || (wordBuffer.size() > 10000))
+	if ((value == -1) || (wordBuffer.size() > 30000))
 	{
 		// Write to file
 		vector<string> wordBufferOut = wordBuffer;
@@ -110,5 +110,5 @@ void exportMap(string filename, string word, int value)
 void writeTofile(string fileName, vector<string> wordBuffer, vector<int> valueBuffer)
 {
 	vector<string> outputVector = buildTempMapVector(wordBuffer);
-	File_Management::exportMapFile(fileName, outputVector);
+	File_Management_map::exportMapFile(fileName, outputVector);
 }

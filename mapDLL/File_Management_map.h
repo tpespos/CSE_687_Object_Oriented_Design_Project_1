@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class File_Management
+class File_Management_map
 {
 
 public:
@@ -62,6 +62,8 @@ public:
 	string getDLLFileLocation();
 
 	string getInputFileLocation();
+
+	string getIntermediateFileLocation();
 
 	void outputSuccessFile();
 

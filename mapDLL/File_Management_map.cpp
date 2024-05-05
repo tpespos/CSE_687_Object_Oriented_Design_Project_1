@@ -17,7 +17,7 @@ namespace fs = std::filesystem;
 //================================================================
 //================================================================
 
-void File_Management::setFileBeingWorked(string filePath)
+void File_Management_map::setFileBeingWorked(string filePath)
 {
 
 	string file = extractFileName(filePath);
@@ -26,12 +26,12 @@ void File_Management::setFileBeingWorked(string filePath)
 
 }
 
-string File_Management::getFileBeingWorked()
+string File_Management_map::getFileBeingWorked()
 {
 	return fileBeingWorked;
 }
 
-string File_Management::getInputFileLocation()
+string File_Management_map::getInputFileLocation()
 {
 	return inputFileLocation;
 }
@@ -41,7 +41,7 @@ string File_Management::getInputFileLocation()
 //================================================================
 //================================================================
 
-string File_Management::extractFileName(const string& filePath) 
+string File_Management_map::extractFileName(const string& filePath)
 {
 
 	fs::path path(filePath);
@@ -49,7 +49,7 @@ string File_Management::extractFileName(const string& filePath)
 
 }
 
-int File_Management::getNumberOfInputFiles()
+int File_Management_map::getNumberOfInputFiles()
 {
 	return nInputFiles;
 }
@@ -59,7 +59,7 @@ int File_Management::getNumberOfInputFiles()
 //================================================================
 //================================================================
 
-vector<string> File_Management::importReduceFile() 
+vector<string> File_Management_map::importReduceFile()
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
@@ -85,7 +85,7 @@ vector<string> File_Management::importReduceFile()
 //================================================================
 
 
-vector<string> File_Management::importSortFile() 
+vector<string> File_Management_map::importSortFile()
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
@@ -111,7 +111,7 @@ vector<string> File_Management::importSortFile()
 //================================================================
 
 
-vector<string> File_Management::importMapFile() 
+vector<string> File_Management_map::importMapFile()
 {
 	vector<string> lines;
 	string inputFilePath = inputFileLocation;
@@ -136,14 +136,10 @@ vector<string> File_Management::importMapFile()
 //================================================================
 //================================================================
 
-void File_Management::exportMapFile(string intermediateFileLocation, const vector<string>& data)
+void File_Management_map::exportMapFile(string intermediateFile, const vector<string>& data)
 {
 	ofstream file;
-	string intermediateFilePath = intermediateFileLocation;
-	int lastDir = intermediateFilePath.find_last_of("\\");
-	string tempfilePath = intermediateFilePath.substr(0, lastDir);
-	string fileName = intermediateFilePath.substr(lastDir+1, intermediateFilePath.size());
-	string filepath = tempfilePath.append("\\").append("Map_").append(fileName).append(".txt");
+	string filepath = intermediateFile;
 
 	//string filepath = intermediateFilePath.append("\\").append("Map_").append("Stuff");
 	if (isFileEmpty(filepath)) {
@@ -173,7 +169,7 @@ void File_Management::exportMapFile(string intermediateFileLocation, const vecto
 //================================================================
 
 // check the first charicter of the file, and check if it's the end of file character
-bool File_Management::isFileEmpty(const string& filename)
+bool File_Management_map::isFileEmpty(const string& filename)
 {
 	ifstream file(filename);
 	return file.peek() == ifstream::traits_type::eof();
@@ -183,7 +179,7 @@ bool File_Management::isFileEmpty(const string& filename)
 //================================================================
 //================================================================
 
-void File_Management::exportSortFile(const vector<string>& data) 
+void File_Management_map::exportSortFile(const vector<string>& data)
 {
 	ofstream file;
 	string intermediateFilePath = intermediateFileLocation;
@@ -215,7 +211,7 @@ void File_Management::exportSortFile(const vector<string>& data)
 //================================================================
 //================================================================
 
-void File_Management::exportReduceFile(const vector<string>& data) 
+void File_Management_map::exportReduceFile(const vector<string>& data)
 {
 	ofstream file;
 	string outputFilePath = outputFileLocation;
@@ -247,7 +243,7 @@ void File_Management::exportReduceFile(const vector<string>& data)
 //================================================================
 //================================================================
 
-void File_Management::outputSuccessFile()
+void File_Management_map::outputSuccessFile()
 {
 	ofstream file;
 	string outputFilePath = outputFileLocation;
@@ -264,7 +260,7 @@ void File_Management::outputSuccessFile()
 //================================================================
 //================================================================
 
-vector<string> File_Management::getInputFiles()
+vector<string> File_Management_map::getInputFiles()
 {
 	searchThroughInputDirectory();
 
@@ -277,7 +273,7 @@ vector<string> File_Management::getInputFiles()
 //================================================================
 //================================================================
 
-vector<string> File_Management::getIntermediateFiles()
+vector<string> File_Management_map::getIntermediateFiles()
 {
 	searchThroughIntermediateDirectory();
 
@@ -288,9 +284,8 @@ vector<string> File_Management::getIntermediateFiles()
 //================================================================
 //================================================================
 
-void File_Management::searchThroughIntermediateDirectory()
+void File_Management_map::searchThroughIntermediateDirectory()
 {
-
 	// search for files inside of the input file directory and append them to the inputfiles vector
 	for (const auto& entry : fs::directory_iterator(intermediateFileLocation)) 
 	{
@@ -298,31 +293,34 @@ void File_Management::searchThroughIntermediateDirectory()
 			intermediateFiles.push_back(entry.path().string());
 		}
 	}
-
 }
 
-
-void File_Management::setInputFileLocation(string filepath)
+void File_Management_map::setInputFileLocation(string filepath)
 {
 	inputFileLocation = filepath;
 }
 
-void File_Management::setIntermediateFileLocation(string filepath)
+void File_Management_map::setIntermediateFileLocation(string filepath)
 {
 	intermediateFileLocation = filepath;
 }
 
-void File_Management::setOutputFileLocation(string filepath)
+string File_Management_map::getIntermediateFileLocation()
+{
+	return intermediateFileLocation;
+}
+
+void File_Management_map::setOutputFileLocation(string filepath)
 {
 	outputFileLocation = filepath;
 }
 
-void File_Management::setDLLFileLocation(string filePath)
+void File_Management_map::setDLLFileLocation(string filePath)
 {
 	dllFileLocation = filePath;
 }
 
-string File_Management::getDLLFileLocation()
+string File_Management_map::getDLLFileLocation()
 {
 	return dllFileLocation;
 }
@@ -332,7 +330,7 @@ string File_Management::getDLLFileLocation()
 //================================================================
 //================================================================
 
-void File_Management::searchThroughInputDirectory()
+void File_Management_map::searchThroughInputDirectory()
 {
 
 	// search for files inside of the input file directory and append them to the inputfiles vector
@@ -349,7 +347,7 @@ void File_Management::searchThroughInputDirectory()
 //================================================================
 //================================================================
 
-int File_Management::searchThroughDllDirectory()
+int File_Management_map::searchThroughDllDirectory()
 {
 	int numberOfCorrectDllFiles = 0;
 
@@ -392,7 +390,7 @@ int File_Management::searchThroughDllDirectory()
 //================================================================
 //================================================================
 
-void File_Management::promptUserForDirectories()
+void File_Management_map::promptUserForDirectories()
 {
 
 	struct stat sb;
