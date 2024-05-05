@@ -15,14 +15,15 @@ public:
 
 	Map_Tokenizer(File_Management inputFileObj);
 
-	void map(string fileName, string lineToBeParsed);
+	void mapDLL(string dllPathandName, string fileName, string lineToBeParsed);
 
-	void writeTofile();
+	//void writeTofile();
 
 private:
 
 	File_Management fileObj;
-	vector<string> wordBuffer;
+	
+	/*vector<string> wordBuffer;
 	vector<int> valueBuffer;
 
 	void removeNonLetterCharacters(string& inputString);
@@ -33,7 +34,7 @@ private:
 
 	vector<string> buildTempMapVector(vector<string> tokens);
 
-	void exportMap(string word, int value);
+	void exportMap(string word, int value);*/
 
 };
 

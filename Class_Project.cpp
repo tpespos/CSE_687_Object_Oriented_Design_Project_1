@@ -72,11 +72,15 @@ int workflow(File_Management my_File_Management)
         Map_Tokenizer mapTokenizerObj(my_File_Management);
         vector<string> fileParsedLineVector = my_File_Management.importMapFile();
         string fileName = my_File_Management.getFileBeingWorked();
+        string dllPathandName = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\code\\x64\\Debug\\mapDLL.dll";
+        
+        string fn_and_path = my_File_Management.getInputFileLocation();
+        fn_and_path.append(fn_and_path);
         for (int i = 0; i < fileParsedLineVector.size(); i++)
         {
-            mapTokenizerObj.map(fileName, fileParsedLineVector[i]);
+            mapTokenizerObj.mapDLL(dllPathandName, fn_and_path, fileParsedLineVector[i]);
         }
-        mapTokenizerObj.writeTofile();
+        //mapTokenizerObj.writeTofile();
 
         //toc();
         // Sort

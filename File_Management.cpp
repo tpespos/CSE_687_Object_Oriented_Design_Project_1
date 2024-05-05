@@ -29,6 +29,11 @@ string File_Management::getFileBeingWorked()
 	return fileBeingWorked;
 }
 
+string File_Management::getInputFileLocation()
+{
+	return inputFileLocation;
+}
+
 
 //================================================================
 //================================================================
@@ -129,11 +134,15 @@ vector<string> File_Management::importMapFile()
 //================================================================
 //================================================================
 
-void File_Management::exportMapFile(const vector<string>& data) 
+void File_Management::exportMapFile(string intermediateFileLocation, const vector<string>& data)
 {
 	ofstream file;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Map_").append(fileBeingWorked);
+	int lastDir = intermediateFilePath.find_last_of("\\");
+	string tempfilePath = intermediateFilePath.substr(0, lastDir);
+	string fileName = intermediateFilePath.substr(lastDir, intermediateFilePath.size());
+	string filepath = tempfilePath.append("\\").append("Map_").append(fileName);
+	//string filepath = intermediateFilePath.append("\\").append("Map_").append("Stuff");
 	if (isFileEmpty(filepath)) {
 		file.open(filepath);
 	}
@@ -147,25 +156,12 @@ void File_Management::exportMapFile(const vector<string>& data)
 		return;
 	}
 
-	//// Need to buffer
-	//string buff;
-	//int rem = data.size() % 50;
-	//int nLoops = data.size() / 50;
-
-	//for (size_t i = 0; i < nLoops; ++i) {
-	//	buff =  buff + data[i] ;
-	//	if (i != data.size() - 1) {
-	//		file << endl;
-	//	}
-	//}
-
 	for (size_t i = 0; i < data.size(); ++i) {
 		file << data[i];
 		if (i != data.size() - 1) {
 			file << endl;
 		}
 	}
-
 	file.close();
 }
 
@@ -268,7 +264,7 @@ vector<string> File_Management::getInputFiles()
 {
 	searchThroughInputDirectory();
 
-	nInputFiles = inputFiles.size();
+	nInputFiles = (int)inputFiles.size();
 
 	return inputFiles;
 }
