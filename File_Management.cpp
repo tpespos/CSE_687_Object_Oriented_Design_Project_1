@@ -308,6 +308,21 @@ void File_Management::setIntermediateFileLocation(string filepath)
 	intermediateFileLocation = filepath;
 }
 
+void File_Management::setOutputFileLocation(string filepath)
+{
+	outputFileLocation = filepath;
+}
+
+void File_Management::setDLLFileLocation(string filePath)
+{
+	dllFileLocation = filePath;
+}
+
+string File_Management::getDLLFileLocation()
+{
+	return dllFileLocation;
+}
+
 
 //================================================================
 //================================================================

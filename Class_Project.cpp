@@ -45,8 +45,23 @@ int main()
     File_Management my_File_Management;
     Reduce myReducer;
 
-    my_File_Management.promptUserForDirectories();
-    
+    bool TEST = 1;
+    if (!TEST)
+    {
+        my_File_Management.promptUserForDirectories();
+    }
+    else
+    {
+        string inputPath = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\shakespeare";
+        string ouputPath = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\out";
+        string interPath = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\interFileLoc";
+        string dllPath = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\code\\x64\\Debug";
+        my_File_Management.setInputFileLocation(inputPath);
+        my_File_Management.setOutputFileLocation(ouputPath);
+        my_File_Management.setIntermediateFileLocation(interPath);
+        my_File_Management.setDLLFileLocation(dllPath);
+    }
+ 
     int check = workflow(my_File_Management);
     if (check)
     {
@@ -72,8 +87,8 @@ int workflow(File_Management my_File_Management)
         Map_Tokenizer mapTokenizerObj(my_File_Management);
         vector<string> fileParsedLineVector = my_File_Management.importMapFile();
         string fileName = my_File_Management.getFileBeingWorked();
-        string dllPathandName = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\code\\x64\\Debug\\mapDLL.dll";
-        
+        string dllPathandName = my_File_Management.getDLLFileLocation();
+        dllPathandName.append("//mapDLL.dll");
         string fn_and_path = my_File_Management.getInputFileLocation();
         fn_and_path.append(fn_and_path);
         for (int i = 0; i < fileParsedLineVector.size(); i++)

@@ -22,7 +22,7 @@ public:
 
 	int searchThroughDllDirectory();
 
-	bool isFileEmpty(const string& filename);
+	static bool isFileEmpty(const string& filename);
 
 	string extractFileName(const string& filePath);
 
@@ -45,13 +45,19 @@ public:
 
 	void setInputFileLocation(string filepath);
 
+	void setOutputFileLocation(string filepath);
+
 	void setIntermediateFileLocation(string filepath);
 
 	void setFileBeingWorked(string filePath);
 
+	void setDLLFileLocation(string filePath);
+
 	string getFileBeingWorked();
 
 	int getNumberOfInputFiles();
+
+	string getDLLFileLocation();
 
 	string getInputFileLocation();
 
