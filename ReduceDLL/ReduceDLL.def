@@ -1,0 +1,6 @@
+LIBRARY Reduce_DLL
+EXPORTS
+	reduceWrapper
+	loadDataFromFile
+	reduce
+	exportFunction
