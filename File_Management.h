@@ -61,6 +61,8 @@ public:
 
 	string getInputFileLocation();
 
+	string getIntermediateFileLocation();
+
 	void outputSuccessFile();
 
 private:

@@ -60,6 +60,7 @@ int main()
         my_File_Management.setOutputFileLocation(ouputPath);
         my_File_Management.setIntermediateFileLocation(interPath);
         my_File_Management.setDLLFileLocation(dllPath);
+
     }
  
     int check = workflow(my_File_Management);
@@ -76,6 +77,8 @@ int main()
 int workflow(File_Management my_File_Management)
 {
     vector<string> inputFiles = my_File_Management.getInputFiles();
+    string mapdllPathandName = my_File_Management.getDLLFileLocation();
+    mapdllPathandName.append("//mapDLL.dll");
 
     // loop though each input file
     for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
@@ -86,17 +89,17 @@ int workflow(File_Management my_File_Management)
         // Map
         Map_Tokenizer mapTokenizerObj(my_File_Management);
         vector<string> fileParsedLineVector = my_File_Management.importMapFile();
+
+        // Create file path/name for saving each intermediate file
         string fileName = my_File_Management.getFileBeingWorked();
-        string dllPathandName = my_File_Management.getDLLFileLocation();
-        dllPathandName.append("//mapDLL.dll");
-        string fn_and_path = my_File_Management.getInputFileLocation();
-        fn_and_path.append(fn_and_path);
+        string interFilePath = my_File_Management.getIntermediateFileLocation();
+        interFilePath.append("\\").append("map_").append(fileName);
+
         for (int i = 0; i < fileParsedLineVector.size(); i++)
         {
-            mapTokenizerObj.mapDLL(dllPathandName, fn_and_path, fileParsedLineVector[i]);
+            mapTokenizerObj.mapDLL(mapdllPathandName, interFilePath, fileParsedLineVector[i]);
         }
-        //mapTokenizerObj.writeTofile();
-
+ 
         //toc();
         // Sort
         //cout << "entering sort\n";

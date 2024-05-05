@@ -34,6 +34,11 @@ string File_Management::getInputFileLocation()
 	return inputFileLocation;
 }
 
+string File_Management::getIntermediateFileLocation()
+{
+	return intermediateFileLocation;
+}
+
 
 //================================================================
 //================================================================
@@ -137,11 +142,8 @@ vector<string> File_Management::importMapFile()
 void File_Management::exportMapFile(string intermediateFileLocation, const vector<string>& data)
 {
 	ofstream file;
-	string intermediateFilePath = intermediateFileLocation;
-	int lastDir = intermediateFilePath.find_last_of("\\");
-	string tempfilePath = intermediateFilePath.substr(0, lastDir);
-	string fileName = intermediateFilePath.substr(lastDir, intermediateFilePath.size());
-	string filepath = tempfilePath.append("\\").append("Map_").append(fileName);
+	string filepath = intermediateFileLocation;
+	
 	//string filepath = intermediateFilePath.append("\\").append("Map_").append("Stuff");
 	if (isFileEmpty(filepath)) {
 		file.open(filepath);
