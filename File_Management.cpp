@@ -330,6 +330,49 @@ void File_Management::searchThroughInputDirectory()
 //================================================================
 //================================================================
 
+int File_Management::searchThroughDllDirectory()
+{
+	int numberOfCorrectDllFiles = 0;
+
+	// search for files inside of the input file directory and append them to the inputfiles vector
+	for (const auto& entry : fs::directory_iterator(dllFileLocation))
+	{
+		if (entry.is_regular_file()) {
+			dllFiles.push_back(entry.path().string());
+		}
+	}
+
+	for (auto file : dllFiles)
+	{
+		if (file == "Map_DLL.dll")
+		{
+			numberOfCorrectDllFiles++;
+			break;
+		}
+	}
+
+	for (auto file : dllFiles)
+	{
+		if (file == "Reduce_DLL.dll")
+		{
+			numberOfCorrectDllFiles++;
+			break;
+		}
+	}
+
+	if (numberOfCorrectDllFiles != 2)
+	{
+		cout << "Desired DLL Files NOT FOUND!" << endl; //Exiting the program" << endl;
+		return 0;
+	}
+
+	return 1;
+}
+
+//================================================================
+//================================================================
+//================================================================
+
 void File_Management::promptUserForDirectories()
 {
 
@@ -384,6 +427,29 @@ void File_Management::promptUserForDirectories()
 	}
 
 	cout << endl;
+
+	//=====================================================
+
+	int didWeFindTheRightDllFiles = 0;
+
+	while (didWeFindTheRightDllFiles == 0)
+	{
+		cout << "DLL: ";
+		cin >> dllFileLocation;
+
+		dir = dllFileLocation.c_str();
+
+		while (stat(dir, &sb) != 0)
+		{
+			cout << "ERROR: Enter Valid Input Directory: ";
+			cin >> dllFileLocation;
+			dir = dllFileLocation.c_str();
+		}
+
+		cout << endl;
+
+		didWeFindTheRightDllFiles = searchThroughDllDirectory();
+	}
 
 }
 
