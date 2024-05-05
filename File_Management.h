@@ -20,6 +20,8 @@ public:
 
 	void searchThroughIntermediateDirectory();
 
+	int searchThroughDllDirectory();
+
 	bool isFileEmpty(const string& filename);
 
 	string extractFileName(const string& filePath);
@@ -65,6 +67,10 @@ private:
 	string outputFileLocation;
 
 	string intermediateFileLocation;
+
+	string dllFileLocation;
+
+	vector<string> dllFiles;
 
 	vector<string> intermediateFiles;
 
