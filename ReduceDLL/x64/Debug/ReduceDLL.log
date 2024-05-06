@@ -1,5 +1,5 @@
 ﻿  File_Management.cpp
-C:\Users\lande\source\repos\tpespos\CSE_687_Object_Oriented_Design_Project_1\File_Management.cpp(272,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\lande\source\repos\tpespos\CSE_687_Object_Oriented_Design_Project_1\File_Management.cpp(267,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file '/File_Management.cpp')
   
   ReduceDLL.cpp
@@ -16,4 +16,6 @@ C:\Users\lande\source\repos\tpespos\CSE_687_Object_Oriented_Design_Project_1\Red
   (compiling source file '/ReduceDLL.cpp')
   
   Generating Code...
+     Creating library C:\Users\lande\source\repos\tpespos\CSE_687_Object_Oriented_Design_Project_1\ReduceDLL\x64\Debug\ReduceDLL.lib and object C:\Users\lande\source\repos\tpespos\CSE_687_Object_Oriented_Design_Project_1\ReduceDLL\x64\Debug\ReduceDLL.exp
+ReduceDLL.exp : warning LNK4070: /OUT:Reduce_DLL.dll directive in .EXP differs from output filename 'C:\Users\lande\source\repos\tpespos\CSE_687_Object_Oriented_Design_Project_1\ReduceDLL\x64\Debug\ReduceDLL.dll'; ignoring directive
   ReduceDLL.vcxproj -> C:\Users\lande\source\repos\tpespos\CSE_687_Object_Oriented_Design_Project_1\ReduceDLL\x64\Debug\ReduceDLL.dll

@@ -5,9 +5,9 @@
 #include "File_Management.h"
 
 int reduceWrapper(File_Management fileManager) {
-	cout << "entering wrapper\n";
+	//cout << "entering wrapper\n";
 	//File_Management fileManager;
-	cout << "path1: " << fileManager.importReduceFile()[0];
+	//cout << "path1: " << fileManager.importReduceFile()[0];
 	vector<string> inputFileText = fileManager.importReduceFile();
 		//loadDataFromFile(fileManager);
 	vector<string> bufferToOutput;

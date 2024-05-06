@@ -50,7 +50,7 @@ int File_Management::getNumberOfInputFiles()
 
 string File_Management::getIntermediateFileLocation()
 {
-	return getIntermediateFileLocation();
+	return intermediateFileLocation;
 }
 
 
@@ -373,7 +373,7 @@ int File_Management::searchThroughDllDirectory()
 		
 		file = file.substr(file.find_last_of("\\") + 1, file.length() - file.find_last_of("\\"));
 		
-		if (file == "Map_DLL.dll")
+		if (file == "mapDLL.dll")
 		{
 			numberOfCorrectDllFiles++;
 			break;

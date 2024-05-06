@@ -13,27 +13,27 @@
 #include <iostream>
 #include <ctime>
 
-//// Globals
-//clock_t start_time; // Global for tic-toc functions
-//char cwd[4096]; // Global for get current Dir
-//
-//// Function Definitions
-//
-//void tic(void) {
-//
-//    start_time = clock();
-//
-//}
-//
-//void toc() {
-//
-//    clock_t t = clock();
-//    t = t - start_time;
-//    double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
-//    printf("This code block took %f seconds to execute \n", time_taken);
-//
-//}
-//
+// Globals
+clock_t start_time; // Global for tic-toc functions
+char cwd[4096]; // Global for get current Dir
+
+// Function Definitions
+
+void tic(void) {
+
+    start_time = clock();
+
+}
+
+void toc() {
+
+    clock_t t = clock();
+    t = t - start_time;
+    double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
+    printf("This code block took %f seconds to execute \n", time_taken);
+
+}
+
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -42,6 +42,7 @@ int workflow(File_Management my_File_Management);
 
 int main()
 {
+    tic();
     File_Management my_File_Management;
     Reduce myReducer;
 
@@ -55,7 +56,7 @@ int main()
     }
 
     std::cout << "End Program" << std::endl;
-
+    toc();
 }
 
 int workflow(File_Management my_File_Management)
@@ -77,6 +78,9 @@ int workflow(File_Management my_File_Management)
 
         // Create file path/name for saving each intermediate file
         string fileName = my_File_Management.getFileBeingWorked();
+        
+        //cout << my_File_Management.getIntermediateFileLocation();
+        
         string interFilePath = my_File_Management.getIntermediateFileLocation();
         interFilePath.append("\\").append("map_").append(fileName);
 
