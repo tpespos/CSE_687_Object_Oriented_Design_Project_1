@@ -42,7 +42,7 @@ int workflow(File_Management my_File_Management);
 
 int main()
 {
-    tic();
+    //tic();
     File_Management my_File_Management;
     Reduce myReducer;
 
@@ -56,7 +56,7 @@ int main()
     }
 
     std::cout << "End Program" << std::endl;
-    toc();
+    //toc();
 }
 
 int workflow(File_Management my_File_Management)
@@ -69,7 +69,7 @@ int workflow(File_Management my_File_Management)
     for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
     {
 
-        //tic();
+        tic();
         my_File_Management.setFileBeingWorked(inputFiles[i]);
 
         // Map
@@ -88,7 +88,7 @@ int workflow(File_Management my_File_Management)
         mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector);
 
 
-        //toc();
+        toc();
         // Sort
         //cout << "entering sort\n";
         Sort sortObj(my_File_Management); // Looks like constructor runs sort operation

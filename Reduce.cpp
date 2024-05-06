@@ -25,12 +25,12 @@ int Reduce::reduceCallDLL() {
     string filepathToDLL;
     vector<string> DllFilesToSearch = fileManager.getDllFiles();
     for (int i = 0; i < DllFilesToSearch.size(); i++)    {
-        cout << "\nDllFilesToSearch: " << DllFilesToSearch[i] << "finding reduce HERE: "<< DllFilesToSearch[i].find("Reduce");
+        //cout << "\nDllFilesToSearch: " << DllFilesToSearch[i] << "finding reduce HERE: "<< DllFilesToSearch[i].find("Reduce");
         if (DllFilesToSearch[i].find("Reduce") > 0 && DllFilesToSearch[i].find("Reduce") < DllFilesToSearch[i].length()) {
             filepathToDLL = DllFilesToSearch[i];
         }
     }
-    cout << "\ndllFileName: " << filepathToDLL;
+    //cout << "\ndllFileName: " << filepathToDLL;
     
     //filepathToDLL = DllFilesToSearch[1];
 

@@ -25,12 +25,12 @@ int reduceWrapper(File_Management fileManager) {
 		exportFunction(tempString, tempCount, &bufferToOutput);
 		if (bufferToOutput.size() > 5000) {
 			//buffer to save
-			cout << "exportingfiles\n";
+			//cout << "exportingfiles\n";
 			fileManager.exportReduceFile(bufferToOutput);
 			bufferToOutput.clear();
 		}
 	}
-	cout << "wrting to final buffer\n";
+	//cout << "wrting to final buffer\n";
 	fileManager.exportReduceFile(bufferToOutput);
 	bufferToOutput.clear();
 
