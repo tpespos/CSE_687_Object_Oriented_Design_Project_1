@@ -7,7 +7,9 @@
 int reduceWrapper(File_Management fileManager) {
 	cout << "entering wrapper\n";
 	//File_Management fileManager;
-	vector<string> inputFileText = loadDataFromFile(fileManager);
+	cout << "path1: " << fileManager.importReduceFile()[0];
+	vector<string> inputFileText = fileManager.importReduceFile();
+		//loadDataFromFile(fileManager);
 	vector<string> bufferToOutput;
 	//inputstring...get one line
 	for (int i = 0; i < inputFileText.size(); i++) {

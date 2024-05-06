@@ -86,6 +86,7 @@ int workflow(File_Management my_File_Management)
         
         // Reduce
         //cout << "entering reduce\n";
+        //vector<string> inputFileText = my_File_Management.importReduceFile();
         Reduce reduceObj(my_File_Management);
         reduceObj.reduceCallDLL();
         //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();

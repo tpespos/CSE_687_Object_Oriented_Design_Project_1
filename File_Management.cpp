@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <sys/stat.h>
+#include <pch.h>
 
 #include "File_Management.h"
 
@@ -405,7 +406,7 @@ int File_Management::searchThroughDllDirectory()
 void File_Management::promptUserForDirectories()
 {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////REMOVE DEBUG HERE!!!!!
-	DEBUG = 0;
+	DEBUG = 1;
 
 
 	struct stat sb;
@@ -489,6 +490,8 @@ void File_Management::promptUserForDirectories()
 		cout << "DLL: ";
 		if (DEBUG == 1 && numberOfTimesThroughLoop == 0) {
 			dllFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\DLLs";
+			//dllFileLocation = "C:\\Users\\lande\\OneDrive\\Documents\\!Masters\\DLLs";
+		
 		}
 		else
 		{
