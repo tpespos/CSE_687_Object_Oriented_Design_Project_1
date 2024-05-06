@@ -87,7 +87,7 @@ int workflow(File_Management my_File_Management)
         // Reduce
         //cout << "entering reduce\n";
         Reduce reduceObj(my_File_Management);
-        reduceObj.reduceWrapper();
+        reduceObj.reduceCallDLL();
         //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
 
         std::cout << "File " << i+1 << " complete.\n";

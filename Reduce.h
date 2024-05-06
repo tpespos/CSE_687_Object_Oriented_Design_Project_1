@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "framework.h"
+
 #include "File_Management.h"
 using namespace std;
 
@@ -21,12 +23,7 @@ public:
 
 
 	//methods
-	int reduceWrapper();
-	int loadDataFromFile();
-	int reduce(string inputLine, string* outputString, int* outputCount);
-	int exportFunction(string key, int reducedValue);
-	int writeBufferToSysAndClear();
-	int writeSuccessToFile();
+	int reduceCallDLL();
 
 	int fileManagerUpdate(File_Management newFileManeger);
 
@@ -34,13 +31,10 @@ public:
 private:
 	//vars
 
-	string inputFileName;
+	//string inputFileName;
 	File_Management fileManager;
-	vector<string> inputFileText;
-	vector<string> bufferToOutput;
 
 	int DEBUG;
-	
 
 };
 
