@@ -42,6 +42,8 @@ public:
 
 	vector<string> getIntermediateFiles();
 
+	vector<string> getDllFiles();
+
 	void setInputFileLocation(string filepath);
 
 	void setIntermediateFileLocation(string filepath);
@@ -73,6 +75,8 @@ private:
 	vector<string> dllFiles;
 
 	vector<string> intermediateFiles;
+
+	int DEBUG;
 
 };
 

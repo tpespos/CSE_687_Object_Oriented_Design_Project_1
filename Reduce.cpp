@@ -22,11 +22,21 @@ int Reduce::fileManagerUpdate(File_Management newFileManeger) {
 typedef int (*ReduceDLLFunc)(File_Management);
 
 int Reduce::reduceCallDLL() {
+    string filepathToDLL;
+    vector<string> DllFilesToSearch = fileManager.getDllFiles();
+    for (int i = 0; i < DllFilesToSearch.size(); i++)    {
+        cout << "\nDllFilesToSearch: " << DllFilesToSearch[i] << "finding reduce HERE: "<< DllFilesToSearch[i].find("Reduce");
+        if (DllFilesToSearch[i].find("Reduce") > 0 && DllFilesToSearch[i].find("Reduce") < DllFilesToSearch[i].length()) {
+            filepathToDLL = DllFilesToSearch[i];
+        }
+    }
+    cout << "\ndllFileName: " << filepathToDLL;
+    
+    //filepathToDLL = DllFilesToSearch[1];
 
-    //string filepathToDLLs = fileManager.getDLLFileLocation();
-    string filepathToDLLs = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\x64\\Debug\\ReduceDLL.dll";
+    //string filepathToDLLs = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\x64\\Debug\\ReduceDLL.dll";
 
-    wstring temp = wstring(filepathToDLLs.begin(), filepathToDLLs.end());
+    wstring temp = wstring(filepathToDLL.begin(), filepathToDLL.end());
     LPCWSTR dummy = temp.c_str();
 
     HINSTANCE hDLL = LoadLibrary(dummy);

@@ -288,6 +288,16 @@ vector<string> File_Management::getIntermediateFiles()
 //================================================================
 //================================================================
 
+vector<string> File_Management::getDllFiles()
+{
+	//added by ryan
+	return dllFiles;
+}
+
+//================================================================
+//================================================================
+//================================================================
+
 void File_Management::searchThroughIntermediateDirectory()
 {
 
@@ -346,24 +356,39 @@ int File_Management::searchThroughDllDirectory()
 		}
 	}
 
+	/*
+	if (DEBUG == 1)	{
+		cout << "\nFILES FOUND: \n";
+		for (int i = 0; i < dllFiles.size(); i++)		{
+			cout << dllFiles[i]<< "\n";
+		}
+		cout << "\n";
+	}
+	//*/
+	
+	
 	for (auto file : dllFiles)
 	{
+		
+		file = file.substr(file.find_last_of("\\") + 1, file.length() - file.find_last_of("\\"));
+		
 		if (file == "Map_DLL.dll")
 		{
 			numberOfCorrectDllFiles++;
 			break;
 		}
 	}
-
+	
 	for (auto file : dllFiles)
 	{
-		if (file == "Reduce_DLL.dll")
+		file = file.substr(file.find_last_of("\\") + 1, file.length() - file.find_last_of("\\"));
+		if (file == "ReduceDLL.dll")
 		{
 			numberOfCorrectDllFiles++;
 			break;
 		}
 	}
-
+	
 	if (numberOfCorrectDllFiles != 2)
 	{
 		cout << "Desired DLL Files NOT FOUND!" << endl; //Exiting the program" << endl;
@@ -379,15 +404,25 @@ int File_Management::searchThroughDllDirectory()
 
 void File_Management::promptUserForDirectories()
 {
+	/////////////////////////////////////////////////////////////////////////////////////////////////////REMOVE DEBUG HERE!!!!!
+	DEBUG = 0;
+
 
 	struct stat sb;
 
 	cout << "Provide a URL for the following directories\n";
 
 	//=====================================================
-
+	
 	cout << "Input: ";
-	cin >> inputFileLocation;
+	if (DEBUG == 1)	{
+		inputFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\Plays\\Plays";
+	}
+	else
+	{
+		cin >> inputFileLocation;
+	}
+	
 
 	const char* dir = inputFileLocation.c_str();
 
@@ -403,7 +438,14 @@ void File_Management::promptUserForDirectories()
 	//=====================================================
 
 	cout << "Output: ";
-	cin >> outputFileLocation;
+	if (DEBUG == 1) {
+		outputFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\Plays\\Output";
+	}
+	else
+	{
+		cin >> outputFileLocation;
+	}
+
 
 	dir = outputFileLocation.c_str();
 
@@ -419,7 +461,13 @@ void File_Management::promptUserForDirectories()
 	//=====================================================
 
 	cout << "Intermidiate: ";
-	cin >> intermediateFileLocation;
+	if (DEBUG == 1) {
+		intermediateFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\Plays\\Interm";
+	}
+	else
+	{
+		cin >> intermediateFileLocation;
+	}
 
 	dir = intermediateFileLocation.c_str();
 
@@ -435,11 +483,17 @@ void File_Management::promptUserForDirectories()
 	//=====================================================
 
 	int didWeFindTheRightDllFiles = 0;
-
+	int numberOfTimesThroughLoop = 0;
 	while (didWeFindTheRightDllFiles == 0)
 	{
 		cout << "DLL: ";
-		cin >> dllFileLocation;
+		if (DEBUG == 1 && numberOfTimesThroughLoop == 0) {
+			dllFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\DLLs";
+		}
+		else
+		{
+			cin >> dllFileLocation;
+		}
 
 		dir = dllFileLocation.c_str();
 
@@ -451,8 +505,10 @@ void File_Management::promptUserForDirectories()
 		}
 
 		cout << endl;
-
+		
+		//exit(0);
 		didWeFindTheRightDllFiles = searchThroughDllDirectory();
+		numberOfTimesThroughLoop++;
 	}
 
 }
