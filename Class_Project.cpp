@@ -84,10 +84,9 @@ int workflow(File_Management my_File_Management)
         string interFilePath = my_File_Management.getIntermediateFileLocation();
         interFilePath.append("\\").append("map_").append(fileName);
 
-        for (int i = 0; i < fileParsedLineVector.size(); i++)
-        {
-            mapTokenizerObj.mapDLL(mapdllPathandName, interFilePath, fileParsedLineVector[i]);
-        }
+        // Map
+        mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector);
+
 
         //toc();
         // Sort

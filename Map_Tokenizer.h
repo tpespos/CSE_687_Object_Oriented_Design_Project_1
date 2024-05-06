@@ -15,7 +15,7 @@ public:
 
 	Map_Tokenizer(File_Management inputFileObj);
 
-	void mapDLL(string dllPathandName, string fileName, string lineToBeParsed);
+	int runMap(string dllPathandName, string interFilePath, vector<string> fileParsedLineVector);
 
 private:
 
