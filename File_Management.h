@@ -22,7 +22,7 @@ public:
 
 	int searchThroughDllDirectory();
 
-	bool isFileEmpty(const string& filename);
+	static bool isFileEmpty(const string& filename);
 
 	string extractFileName(const string& filePath);
 
@@ -32,7 +32,7 @@ public:
 
 	vector<string> importReduceFile();
 
-	void exportMapFile(const vector<string>& data);
+	static void exportMapFile(string intermediateFileLocation, const vector<string>& data);
 
 	void exportSortFile(const vector<string>& data);
 
@@ -53,6 +53,10 @@ public:
 	string getFileBeingWorked();
 
 	int getNumberOfInputFiles();
+
+	string getIntermediateFileLocation();
+
+	string getDLLFileLocation();
 
 	void outputSuccessFile();
 
