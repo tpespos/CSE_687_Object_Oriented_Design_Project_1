@@ -61,22 +61,29 @@ int main()
 int workflow(File_Management my_File_Management)
 {
     vector<string> inputFiles = my_File_Management.getInputFiles();
+    string mapdllPathandName = my_File_Management.getDLLFileLocation();
+    mapdllPathandName.append("//mapDLL.dll");
 
     // loop though each input file
     for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
     {
+
         //tic();
         my_File_Management.setFileBeingWorked(inputFiles[i]);
 
         // Map
         Map_Tokenizer mapTokenizerObj(my_File_Management);
         vector<string> fileParsedLineVector = my_File_Management.importMapFile();
+
+        // Create file path/name for saving each intermediate file
         string fileName = my_File_Management.getFileBeingWorked();
+        string interFilePath = my_File_Management.getIntermediateFileLocation();
+        interFilePath.append("\\").append("map_").append(fileName);
+
         for (int i = 0; i < fileParsedLineVector.size(); i++)
         {
-            mapTokenizerObj.map(fileName, fileParsedLineVector[i]);
+            mapTokenizerObj.mapDLL(mapdllPathandName, interFilePath, fileParsedLineVector[i]);
         }
-        mapTokenizerObj.writeTofile();
 
         //toc();
         // Sort
