@@ -27,6 +27,7 @@ int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<st
 			{
 				mapFun(interFilePath, fileParsedLineVector[i]);
 			}
+			mapFun(interFilePath, "END_OF_FILE_FLUSH_BUFFER");
 		}
 	}
 	// Free the DLL

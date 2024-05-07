@@ -10,6 +10,13 @@ using std::stringstream;
 
 void map(string fileName, string lineToBeParsed)
 {
+	if (lineToBeParsed == "END_OF_FILE_FLUSH_BUFFER")
+	{
+		exportMap(fileName, "", -1);
+		return;
+	}
+
+	if (lineToBeParsed.empty()) return;
 
 	// Force blanks on non-alpha chars
 	blankNonLetterCharacters(lineToBeParsed);
@@ -25,10 +32,11 @@ void map(string fileName, string lineToBeParsed)
 		changeAllUpperCaseToLowerCase(temp_str);
 		if (!temp_str.empty())
 		{
-			exportMap(fileName,temp_str, 1);
+			exportMap(fileName, temp_str, 1);
 		}
+		//exportMap(fileName, "", -1);
 	}
-	exportMap(fileName, temp_str, -1);
+
 }
 
 void removeNonLetterCharacters(string& inputString)

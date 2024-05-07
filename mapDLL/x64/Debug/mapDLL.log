@@ -2,11 +2,11 @@
   dllmain.cpp
   File_Management_map.cpp
   map.cpp
-C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\mapDLL\map.cpp(11,6): warning C4273: 'map': inconsistent dll linkage
+C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\mapDLL\map.cpp(11,6): warning C4273: 'map': inconsistent dll linkage
   (compiling source file '/map.cpp')
-  C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\mapDLL\map.h(16,14):
+  C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\mapDLL\map.h(16,14):
   see previous definition of 'map'
   
   Generating Code...
-     Creating library C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\x64\Debug\mapDLL.lib and object C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\x64\Debug\mapDLL.exp
-  mapDLL.vcxproj -> C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\x64\Debug\mapDLL.dll
+     Creating library C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\mapDLL\x64\Debug\mapDLL.lib and object C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\mapDLL\x64\Debug\mapDLL.exp
+  mapDLL.vcxproj -> C:\Users\lodin\Documents\College_work\Spring2024\OOD_Wensday_Class\Project1\code\mapDLL\x64\Debug\mapDLL.dll
