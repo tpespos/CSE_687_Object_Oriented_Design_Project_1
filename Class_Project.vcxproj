@@ -141,9 +141,7 @@
     <ClInclude Include="File_Management.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Map_Tokenizer.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="Reduce.h" />
-    <ClInclude Include="ReduceDLL\pch.h" />
     <ClInclude Include="Sort.h" />
   </ItemGroup>
   <ItemGroup>
