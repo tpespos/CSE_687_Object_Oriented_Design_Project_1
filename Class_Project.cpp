@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <sys/stat.h>
+#include <thread>
 
 #include "Sort.h"
 #include "Map_Tokenizer.h"
@@ -39,6 +40,8 @@ using namespace std;
 namespace fs = std::filesystem;
 
 int workflow(File_Management my_File_Management);
+void Map_For_Threads(File_Management my_File_Management, vector<string> inputFiles, string mapdllPathandName, int threadID);
+void Reduce_For_Threads(File_Management my_File_Management, vector<string> inputFiles, int i);
 
 int main()
 {
@@ -65,10 +68,71 @@ int workflow(File_Management my_File_Management)
     string mapdllPathandName = my_File_Management.getDLLFileLocation();
     mapdllPathandName.append("//mapDLL.dll");
 
+
+    //=============================================================================================
+    const int numThreads = 17;
+    thread threads[numThreads];
+    
+    // Create multiple threads
+    for (int i = 0; i < numThreads; ++i) {
+        threads[i] = thread(Map_For_Threads, my_File_Management, inputFiles, mapdllPathandName, i);
+    }
+
+    // Wait for all threads to finish execution
+    for (int i = 0; i < numThreads; ++i) {
+        threads[i].join();
+    }
+
+    std::cout << "All threads have completed their execution" << std::endl;
+
+    //=============================================================================================
+    /*
+    for (int i = 0; i < numThreads; i++)
+    {
+        my_File_Management.setFileBeingWorked(inputFiles[i]);
+        // Sort
+        Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
+        sortObj.runSort();
+    }
+
+    //=============================================================================================
+    
+    // Create multiple threads
+    for (int i = 0; i < numThreads; ++i) {
+        threads[i] = thread(Reduce_For_Threads, my_File_Management, inputFiles, i);
+    }
+
+    // Wait for all threads to finish execution
+    for (int i = 0; i < numThreads; ++i) {
+        threads[i].join();
+    }
+    
+    std::cout << "All threads have completed their execution" << std::endl;
+    */
+    //=============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+
     // loop though each input file
     for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
     {
 
+        my_File_Management.setFileBeingWorked(inputFiles[i]);
+        /*
         tic();
         my_File_Management.setFileBeingWorked(inputFiles[i]);
 
@@ -89,6 +153,8 @@ int workflow(File_Management my_File_Management)
 
 
         toc();
+        
+
         // Sort
         //cout << "entering sort\n";
         Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
@@ -105,6 +171,64 @@ int workflow(File_Management my_File_Management)
 
     }
 
+    */
+
     return 0;
 
+}
+
+
+
+
+void Map_For_Threads(File_Management my_File_Management, vector<string> inputFiles, string mapdllPathandName, int i)
+{
+
+    std::cout << "This is executed in thread " << i+1 << std::endl;
+
+    //for (int i = 0; i < my_File_Management.getNumberOfInputFiles(); i++)
+    //{
+
+        //tic();
+        my_File_Management.setFileBeingWorked(inputFiles[i]);
+
+        // Map
+        Map_Tokenizer mapTokenizerObj(my_File_Management);
+        vector<string> fileParsedLineVector = my_File_Management.importMapFile();
+
+        // Create file path/name for saving each intermediate file
+        string fileName = my_File_Management.getFileBeingWorked();
+
+        //cout << my_File_Management.getIntermediateFileLocation();
+
+        string interFilePath = my_File_Management.getIntermediateFileLocation();
+        interFilePath.append("\\").append("map_").append(fileName);
+
+        // Map
+        mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector);
+
+
+        //toc();
+    //}
+}
+
+
+
+
+
+void Reduce_For_Threads(File_Management my_File_Management, vector<string> inputFiles, int i)
+{
+
+    std::cout << "This is executed in thread " << i + 1 << std::endl;
+
+    my_File_Management.setFileBeingWorked(inputFiles[i]);
+
+    //for (int i = 0; i < my_File_Management.getNumberOfInputFiles(); i++)
+    //{
+
+    Reduce reduceObj(my_File_Management);
+    reduceObj.reduceCallDLL();
+
+
+    //toc();
+//}
 }

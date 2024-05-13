@@ -418,7 +418,8 @@ void File_Management::promptUserForDirectories()
 	cout << "Input: ";
 	if (DEBUG == 1)	{
 		//inputFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\Plays\\Plays";
-		inputFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\shakespeare";
+		//inputFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\shakespeare";
+		inputFileLocation = "C:\\Users\\tpesp\\source\\repos\\CSE-687-Object-Oriented-Design-Project-1\\Plays\\Plays";
 	}
 	else
 	{
@@ -442,7 +443,8 @@ void File_Management::promptUserForDirectories()
 	cout << "Output: ";
 	if (DEBUG == 1) {
 		//outputFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\Plays\\Output";
-		outputFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\out";
+		//outputFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\out";
+		outputFileLocation = "C:\\Users\\tpesp\\source\\repos\\CSE-687-Object-Oriented-Design-Project-1\\Plays\\Output";
 	}
 	else
 	{
@@ -466,7 +468,8 @@ void File_Management::promptUserForDirectories()
 	cout << "Intermidiate: ";
 	if (DEBUG == 1) {
 		//intermediateFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\Plays\\Interm";
-		intermediateFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\interFileLoc";
+		//intermediateFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\interFileLoc";
+		intermediateFileLocation = "C:\\Users\\tpesp\\source\\repos\\CSE-687-Object-Oriented-Design-Project-1\\Plays\\interm";
 	}
 	else
 	{
@@ -493,7 +496,8 @@ void File_Management::promptUserForDirectories()
 		cout << "DLL: ";
 		if (DEBUG == 1 && numberOfTimesThroughLoop == 0) {
 			//dllFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\DLLs";
-			dllFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\code\\DLLs";
+			//dllFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\code\\DLLs";
+			dllFileLocation = "C:\\Users\\tpesp\\source\\repos\\CSE-687-Object-Oriented-Design-Project-1\\DLLs";
 		
 		}
 		else
