@@ -72,7 +72,7 @@ int workflow(File_Management my_File_Management)
     //=============================================================================================
     const int numThreads = 17;
     thread threads[numThreads];
-    
+    tic();
     // Create multiple threads
     for (int i = 0; i < numThreads; ++i) {
         threads[i] = thread(Map_For_Threads, my_File_Management, inputFiles, mapdllPathandName, i);
@@ -84,9 +84,9 @@ int workflow(File_Management my_File_Management)
     }
 
     std::cout << "All threads have completed their execution" << std::endl;
-
+    
     //=============================================================================================
-    /*
+    
     for (int i = 0; i < numThreads; i++)
     {
         my_File_Management.setFileBeingWorked(inputFiles[i]);
@@ -106,9 +106,9 @@ int workflow(File_Management my_File_Management)
     for (int i = 0; i < numThreads; ++i) {
         threads[i].join();
     }
-    
+    toc();
     std::cout << "All threads have completed their execution" << std::endl;
-    */
+    
     //=============================================================================================
 
 

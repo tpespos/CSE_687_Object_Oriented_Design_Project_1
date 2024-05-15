@@ -8,15 +8,16 @@
 #include <algorithm>
 using std::stringstream;
 
-void map(string fileName, string lineToBeParsed)
+vector<string> map(string fileName, string lineToBeParsed)
 {
+	/*
 	if (lineToBeParsed == "END_OF_FILE_FLUSH_BUFFER")
 	{
 		exportMap(fileName, "", -1);
 		return;
 	}
-
-	if (lineToBeParsed.empty()) return;
+	*/
+	//if (lineToBeParsed.empty()) return;
 
 	// Force blanks on non-alpha chars
 	blankNonLetterCharacters(lineToBeParsed);
@@ -26,16 +27,26 @@ void map(string fileName, string lineToBeParsed)
 	string temp_str;
 	vector<int> count;
 
+	vector<string> wordBuffer;
+	//vector<int>    valueBuffer;
+	vector<string> outputVector;
+
 	while (getline(ss, temp_str, ' ')) { //use comma as delim for cutting string
 		if (temp_str.empty()) continue;
 		removeNonLetterCharacters(temp_str);
 		changeAllUpperCaseToLowerCase(temp_str);
 		if (!temp_str.empty())
 		{
-			exportMap(fileName, temp_str, 1);
+			wordBuffer.push_back(temp_str);
+			//valueBuffer.push_back(1);
+			//exportMap(fileName, temp_str, 1);
 		}
 		//exportMap(fileName, "", -1);
+
 	}
+
+	return outputVector = buildTempMapVector(wordBuffer);
+	//File_Management_map::exportMapFile(fileName, outputVector);
 
 }
 
@@ -104,7 +115,7 @@ void exportMap(string filename, string word, int value)
 		wordBuffer.push_back(word);
 		valueBuffer.push_back(value);
 	}
-	if ((value == -1) || (wordBuffer.size() > 30000))
+	if ((value == -1) || (wordBuffer.size() > 30000000))
 	{
 		// Write to file
 		vector<string> wordBufferOut = wordBuffer;

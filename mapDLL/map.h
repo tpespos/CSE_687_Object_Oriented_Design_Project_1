@@ -13,7 +13,7 @@ using std::string;
 using std::vector;
 
 
-void DLL_API map(string fileName, string lineToBeParsed);
+vector<string> DLL_API map(string fileName, string lineToBeParsed);
 
 void removeNonLetterCharacters(string& inputString);
 
