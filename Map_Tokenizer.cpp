@@ -37,9 +37,11 @@ int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<st
 			//mapFun(interFilePath, "END_OF_FILE_FLUSH_BUFFER");
 			fileObj.exportMapFile(interFilePath, combined_output);
 		}
+
+		// Free the DLL
+		FreeLibrary(hDLL);
 	}
-	// Free the DLL
-	FreeLibrary(hDLL);
+
 
 	return 0;
 }

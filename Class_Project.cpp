@@ -130,68 +130,6 @@ int workflow(File_Management my_File_Management)
     
     //=============================================================================================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-
-    // loop though each input file
-    for (int i = 0;  i < my_File_Management.getNumberOfInputFiles(); i++)
-    {
-
-        my_File_Management.setFileBeingWorked(inputFiles[i]);
-        /*
-        tic();
-        my_File_Management.setFileBeingWorked(inputFiles[i]);
-
-        // Map
-        Map_Tokenizer mapTokenizerObj(my_File_Management);
-        vector<string> fileParsedLineVector = my_File_Management.importMapFile();
-
-        // Create file path/name for saving each intermediate file
-        string fileName = my_File_Management.getFileBeingWorked();
-        
-        //cout << my_File_Management.getIntermediateFileLocation();
-        
-        string interFilePath = my_File_Management.getIntermediateFileLocation();
-        interFilePath.append("\\").append("map_").append(fileName);
-
-        // Map
-        mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector);
-
-
-        toc();
-        
-
-        // Sort
-        //cout << "entering sort\n";
-        Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
-        sortObj.runSort();
-        
-        // Reduce
-        //cout << "entering reduce\n";
-        //vector<string> inputFileText = my_File_Management.importReduceFile();
-        Reduce reduceObj(my_File_Management);
-        reduceObj.reduceCallDLL();
-        //vector<string> Test_Reduce_Input_Vector = my_File_Management.importReduceFile();
-
-        std::cout << "File " << i+1 << " complete.\n";
-
-    }
-
-    */
-
     return 0;
 
 }
