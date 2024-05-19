@@ -601,6 +601,12 @@ void File_Management::readConfigFileForDirectories()
 		
 	}
 
+	if (numberOfTimesThroughLoop != 4)
+	{
+		cout << "ERROR: There are more or less than 4 lines in the config file, fix your config file.";
+		exit(0);
+	}
+
 	file.close();
 
 }
