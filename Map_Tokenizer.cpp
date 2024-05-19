@@ -12,7 +12,18 @@ Map_Tokenizer::Map_Tokenizer(File_Management inputFileObj)
 int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<string> fileParsedLineVector)
 {
 	vector<string> output;
-	vector<string> combined_output;
+	vector<string> combined_output_1;
+	vector<string> combined_output_2;
+	vector<string> combined_output_3;
+	string interFilePathWithoutTXTatEnd = interFilePath.erase(interFilePath.size() - 4);
+	string interFilePathForCombinedOutput1 = interFilePathWithoutTXTatEnd;
+	string interFilePathForCombinedOutput2 = interFilePathWithoutTXTatEnd;
+	string interFilePathForCombinedOutput3 = interFilePathWithoutTXTatEnd;
+	interFilePathForCombinedOutput1.append("_1.txt");
+	interFilePathForCombinedOutput2.append("_2.txt");
+	interFilePathForCombinedOutput3.append("_3.txt");
+	int bufferToBeFilled = 1;
+
 	typedef vector<string> (*MapDllFunc)(string, string);
 	// Load the DLL dynamically
 	std::wstring stemp = std::wstring(dllPathandName.begin(), dllPathandName.end());
@@ -32,10 +43,28 @@ int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<st
 					continue;
 				}
 				output = mapFun(interFilePath, fileParsedLineVector[i]);
-				combined_output.insert(combined_output.end(), output.begin(), output.end());
+
+				if (bufferToBeFilled == 1)
+				{
+					combined_output_1.insert(combined_output_1.end(), output.begin(), output.end());
+					bufferToBeFilled = 2;
+				}
+				else if (bufferToBeFilled == 2)
+				{
+					combined_output_2.insert(combined_output_2.end(), output.begin(), output.end());
+					bufferToBeFilled = 3;
+				}
+				else if (bufferToBeFilled == 3)
+				{
+					combined_output_3.insert(combined_output_3.end(), output.begin(), output.end());
+					bufferToBeFilled = 1;
+				}
+				
 			}
 			//mapFun(interFilePath, "END_OF_FILE_FLUSH_BUFFER");
-			fileObj.exportMapFile(interFilePath, combined_output);
+			fileObj.exportMapFile(interFilePathForCombinedOutput1, combined_output_1);
+			fileObj.exportMapFile(interFilePathForCombinedOutput2, combined_output_2);
+			fileObj.exportMapFile(interFilePathForCombinedOutput3, combined_output_3); 
 		}
 
 		// Free the DLL
