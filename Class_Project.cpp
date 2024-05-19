@@ -71,22 +71,22 @@ int workflow(File_Management my_File_Management)
 
 
     //=============================================================================================
-    const int numThreads = 17;
-    thread threads[numThreads];
+    const int numOfMapThreads = 17;
+    thread mapThreads[numOfMapThreads];
 
     cout << endl << "Starting Map Section" << endl;
     cout << "==========================================" << endl;
 
     tic();
     // Create multiple threads
-    for (int i = 0; i < numThreads; ++i) {
+    for (int i = 0; i < numOfMapThreads; ++i) {
         cout << "Map Threat Create: " << i + 1 << std::endl;
-        threads[i] = thread(Map_For_Threads, my_File_Management, inputFiles, mapdllPathandName, i);
+        mapThreads[i] = thread(Map_For_Threads, my_File_Management, inputFiles, mapdllPathandName, i);
     }
 
     // Wait for all threads to finish execution
-    for (int i = 0; i < numThreads; ++i) {
-        threads[i].join();
+    for (int i = 0; i < numOfMapThreads; ++i) {
+        mapThreads[i].join();
     }
 
     cout << "All Map threads have completed their execution" << endl;
@@ -109,19 +109,22 @@ int workflow(File_Management my_File_Management)
     cout << "==========================================" << endl << endl;
 
     //=============================================================================================
-    
+    const int numOfReduceThreads = 17;
+    thread reduceThreads[numOfReduceThreads];
+
+
     cout << "Starting Reduce Section" << endl;
     cout << "==========================================" << endl;
 
     // Create multiple threads
-    for (int i = 0; i < numThreads; ++i) {
+    for (int i = 0; i < numOfReduceThreads; ++i) {
         cout << "Reduce Threat Create: " << i + 1 << std::endl;
-        threads[i] = thread(Reduce_For_Threads, my_File_Management, inputFiles, i);
+        reduceThreads[i] = thread(Reduce_For_Threads, my_File_Management, inputFiles, i);
     }
 
     // Wait for all threads to finish execution
-    for (int i = 0; i < numThreads; ++i) {
-        threads[i].join();
+    for (int i = 0; i < numOfReduceThreads; ++i) {
+        reduceThreads[i].join();
     }
     
     cout << "All Reduce threads have completed their execution" << endl;
