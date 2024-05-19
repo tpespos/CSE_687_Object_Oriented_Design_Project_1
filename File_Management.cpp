@@ -523,3 +523,84 @@ void File_Management::promptUserForDirectories()
 
 }
 
+
+//================================================================
+//================================================================
+//================================================================
+
+void File_Management::readConfigFileForDirectories()
+{
+	int numberOfTimesThroughLoop = 0;
+	string line;
+	struct stat sb;
+	relativeConfigFileLocation = "Config_File\\Config.txt";
+
+	ifstream file(relativeConfigFileLocation);
+	if (!file.is_open()) {
+		cerr << "Failed to open file for reading." << endl;
+		return;
+	}
+
+	
+	while (getline(file, line)) {
+
+		if (numberOfTimesThroughLoop == 0)
+		{
+			inputFileLocation = line;
+			numberOfTimesThroughLoop++;
+			
+			const char* dir = inputFileLocation.c_str();
+			if (stat(dir, &sb) != 0)
+			{
+				cout << "ERROR: Config File Not Configured Issue with line 1 INPUT FILE LOCATION";
+				exit(0);
+			}
+		}
+		else if (numberOfTimesThroughLoop == 1)
+		{
+			intermediateFileLocation = line;
+			numberOfTimesThroughLoop++;
+
+			const char* dir = intermediateFileLocation.c_str();
+			if (stat(dir, &sb) != 0)
+			{
+				cout << "ERROR: Config File Not Configured Issue with line 2 INTERMEDIATE FILE LOCATION";
+				exit(0);
+			}
+		}
+		else if (numberOfTimesThroughLoop == 2)
+		{
+			outputFileLocation = line;
+			numberOfTimesThroughLoop++;
+
+			const char* dir = outputFileLocation.c_str();
+			if (stat(dir, &sb) != 0)
+			{
+				cout << "ERROR: Config File Not Configured Issue with line 3 OUTPUT FILE LOCATION";
+				exit(0);
+			}
+		}
+		else if (numberOfTimesThroughLoop == 3)
+		{
+			dllFileLocation = line;
+			numberOfTimesThroughLoop++;
+
+			const char* dir = dllFileLocation.c_str();
+			if (stat(dir, &sb) != 0)
+			{
+				cout << "ERROR: Config File Not Configured Issue with line 4 DLL FILE LOCATION";
+				exit(0);
+			}
+
+			if (searchThroughDllDirectory() == 0)
+			{
+				cout << "ERROR: The correct DLL files not found in the DLL File Location";
+				exit(0);
+			}
+		}
+		
+	}
+
+	file.close();
+
+}

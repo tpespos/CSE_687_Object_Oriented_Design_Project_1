@@ -19,6 +19,8 @@ class File_Management
 public:
 
 	void promptUserForDirectories();
+	 
+	void readConfigFileForDirectories();
 
 	void searchThroughInputDirectory();
 
@@ -85,6 +87,8 @@ private:
 	vector<string> intermediateFiles;
 
 	int DEBUG;
+
+	string relativeConfigFileLocation;
 
 };
 

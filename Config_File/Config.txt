@@ -1,0 +1,4 @@
+C:\Users\tpesp\source\repos\CSE-687-Object-Oriented-Design-Project-1\Plays\Plays
+C:\Users\tpesp\source\repos\CSE-687-Object-Oriented-Design-Project-1\Plays\interm
+C:\Users\tpesp\source\repos\CSE-687-Object-Oriented-Design-Project-1\Plays\Output
+C:\Users\tpesp\source\repos\CSE-687-Object-Oriented-Design-Project-1\DLLs

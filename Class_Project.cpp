@@ -49,7 +49,8 @@ int main()
     File_Management my_File_Management;
     Reduce myReducer;
 
-    my_File_Management.promptUserForDirectories();
+    //my_File_Management.promptUserForDirectories();
+    my_File_Management.readConfigFileForDirectories();
     
     int check = workflow(my_File_Management);
     if (check)
