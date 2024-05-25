@@ -43,6 +43,10 @@ int workflow(File_Management my_File_Management);
 void Map_For_Threads(File_Management my_File_Management, vector<string> inputFiles, string mapdllPathandName, int threadID);
 void Reduce_For_Threads(File_Management my_File_Management, vector<string> inputFiles, int i);
 
+//#################################################################
+//#################################################################
+//#################################################################
+
 int main()
 {
     //tic();
@@ -62,6 +66,10 @@ int main()
     std::cout << "End Program" << std::endl;
     //toc();
 }
+
+//#################################################################
+//#################################################################
+//#################################################################
 
 int workflow(File_Management my_File_Management)
 {
@@ -138,8 +146,9 @@ int workflow(File_Management my_File_Management)
 
 }
 
-
-
+//#################################################################
+//#################################################################
+//#################################################################
 
 void Map_For_Threads(File_Management my_File_Management, vector<string> inputFiles, string mapdllPathandName, int threadNumber)
 {
@@ -172,9 +181,9 @@ void Map_For_Threads(File_Management my_File_Management, vector<string> inputFil
     //}
 }
 
-
-
-
+//#################################################################
+//#################################################################
+//#################################################################
 
 void Reduce_For_Threads(File_Management my_File_Management, vector<string> inputFiles, int i)
 {
