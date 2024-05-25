@@ -51,7 +51,7 @@ int main()
 {
     //tic();
     File_Management my_File_Management;
-    Reduce myReducer;
+    //Reduce myReducer;
 
     //my_File_Management.promptUserForDirectories();
     my_File_Management.readConfigFileForDirectories();
@@ -75,11 +75,13 @@ int workflow(File_Management my_File_Management)
 {
     vector<string> inputFiles = my_File_Management.getInputFiles();
     string mapdllPathandName = my_File_Management.getDLLFileLocation();
+    const int numOfMapThreads = 17;
+    const int numOfReduceThreads = 3;
     mapdllPathandName.append("//mapDLL.dll");
 
-
+    /*
     //=============================================================================================
-    const int numOfMapThreads = 17;
+    
     thread mapThreads[numOfMapThreads];
 
     cout << endl << "Starting Map Section" << endl;
@@ -101,7 +103,7 @@ int workflow(File_Management my_File_Management)
     cout << "==========================================" << endl << endl;
     
     //=============================================================================================
-    const int numOfReduceThreads = 3;
+    
 
     cout << "Starting Sort Section" << endl;
     cout << "==========================================" << endl;
@@ -116,8 +118,9 @@ int workflow(File_Management my_File_Management)
     }
 
     cout << "==========================================" << endl << endl;
-    /*/
+    //*/
     //=============================================================================================
+
     thread reduceThreads[numOfReduceThreads];
 
 
@@ -139,7 +142,16 @@ int workflow(File_Management my_File_Management)
     cout << "==========================================" << endl;
     toc();
     cout << endl;
-    */
+    //*/
+    //=============================================================================================
+    //master sort
+    cout << "Starting Master Sort Section" << endl;
+
+    //=============================================================================================
+    //master reduce
+    cout << "Starting Master Reduce Section" << endl;
+    Reduce reduceObj(my_File_Management, 0, true);
+    reduceObj.reduceCallDLL();
     //=============================================================================================
 
     return 0;
@@ -188,14 +200,12 @@ void Map_For_Threads(File_Management my_File_Management, vector<string> inputFil
 void Reduce_For_Threads(File_Management my_File_Management, vector<string> inputFiles, int i)
 {
 
-    
-
-    my_File_Management.setFileBeingWorked(inputFiles[i]);
+    //my_File_Management.setFileBeingWorked(inputFiles[i]);
 
     //for (int i = 0; i < my_File_Management.getNumberOfInputFiles(); i++)
     //{
 
-    Reduce reduceObj(my_File_Management);
+    Reduce reduceObj(my_File_Management, i+1, false);
     reduceObj.reduceCallDLL();
 
 

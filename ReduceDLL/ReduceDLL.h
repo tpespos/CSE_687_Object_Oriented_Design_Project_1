@@ -15,8 +15,8 @@ using namespace std;
 
 //extern "C" {
 		//methods
-		int reduceWrapper(File_Management fileManager);
-		vector<string> loadDataFromFile(File_Management fileManager);
+		int reduceWrapper(File_Management fileManager, string partNum, bool isMasterReducer);
+		//vector<string> loadDataFromFile(File_Management fileManager);
 		int reduce(string inputLine, string* outputString, int* outputCount);
 		int exportFunction(string key, int reducedValue, vector<string>*);
 //}

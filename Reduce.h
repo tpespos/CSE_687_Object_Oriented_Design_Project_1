@@ -17,7 +17,7 @@ class Reduce
 public:
 	//constructor
 	Reduce();
-	Reduce(File_Management files);
+	Reduce(File_Management files, int partNum, bool isMaster);
 
 	//destructor
 
@@ -33,6 +33,8 @@ private:
 
 	//string inputFileName;
 	File_Management fileManager;
+	int partNumber;
+	bool isMaster;
 
 	int DEBUG;
 

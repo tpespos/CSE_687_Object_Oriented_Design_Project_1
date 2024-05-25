@@ -8,9 +8,10 @@ Reduce::Reduce() {
 }
 
 
-Reduce::Reduce(File_Management files) {
+Reduce::Reduce(File_Management files, int partNum, bool isMasterInput) {
     fileManagerUpdate(files);
-
+    partNumber = partNum;
+    isMaster = isMasterInput;
 }
 
 int Reduce::fileManagerUpdate(File_Management newFileManeger) {
@@ -19,7 +20,7 @@ int Reduce::fileManagerUpdate(File_Management newFileManeger) {
     return 0;
 }
 
-typedef int (*ReduceDLLFunc)(File_Management);
+typedef int (*ReduceDLLFunc)(File_Management, string, bool);
 
 int Reduce::reduceCallDLL() {
     string filepathToDLL;
@@ -46,7 +47,8 @@ int Reduce::reduceCallDLL() {
         ReduceDLLFunc reduceWrapperFunc = (ReduceDLLFunc)GetProcAddress(hDLL, "reduceWrapper");
         if (reduceWrapperFunc != NULL) {
             // Call the wrapper function
-            int didReduceSuccessed = reduceWrapperFunc(fileManager);
+            string partNumAsString = to_string(partNumber);
+            int didReduceSuccessed = reduceWrapperFunc(fileManager, partNumAsString, isMaster);
         }
         else {
             std::cerr << "Failed to get function pointer." << std::endl;
