@@ -34,15 +34,16 @@ public:
 
 	vector<string> importMapFile();
 
-	vector<string> importSortFile();
+	vector<string> importSortFile(string fileNumber, string partNumber);
 
-	vector<string> importReduceFile();
+	vector<string> importReduceFile(string partNumber);
 
-	static void exportMapFile(string intermediateFileLocation, const vector<string>& data);
+	//static 
+	void exportMapFile(string fileNumber, string partNumber, const vector<string>& data);
 
-	void exportSortFile(const vector<string>& data);
+	void exportSortFile(string partNumber, const vector<string>& data);
 
-	void exportReduceFile(const vector<string>& data);
+	void exportReduceFile(string partNumber, const vector<string>& data, bool finalOutputFile);
 
 	vector<string> getInputFiles();
 
@@ -78,7 +79,7 @@ private:
 
 	string outputFileLocation;
 
-	string intermediateFileLocation;
+	string intermediateFileLocation = "";
 
 	string dllFileLocation;
 

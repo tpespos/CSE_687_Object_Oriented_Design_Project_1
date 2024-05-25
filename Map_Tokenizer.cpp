@@ -9,12 +9,13 @@ Map_Tokenizer::Map_Tokenizer(File_Management inputFileObj)
 	fileObj = inputFileObj;
 }
 
-int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<string> fileParsedLineVector)
+int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<string> fileParsedLineVector, int threadNumber)
 {
 	vector<string> output;
 	vector<string> combined_output_1;
 	vector<string> combined_output_2;
 	vector<string> combined_output_3;
+	/*
 	string interFilePathWithoutTXTatEnd = interFilePath.erase(interFilePath.size() - 4);
 	string interFilePathForCombinedOutput1 = interFilePathWithoutTXTatEnd;
 	string interFilePathForCombinedOutput2 = interFilePathWithoutTXTatEnd;
@@ -22,6 +23,7 @@ int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<st
 	interFilePathForCombinedOutput1.append("_1.txt");
 	interFilePathForCombinedOutput2.append("_2.txt");
 	interFilePathForCombinedOutput3.append("_3.txt");
+	*/
 	int bufferToBeFilled = 1;
 
 	typedef vector<string> (*MapDllFunc)(string, string);
@@ -62,9 +64,12 @@ int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<st
 				
 			}
 			//mapFun(interFilePath, "END_OF_FILE_FLUSH_BUFFER");
-			fileObj.exportMapFile(interFilePathForCombinedOutput1, combined_output_1);
-			fileObj.exportMapFile(interFilePathForCombinedOutput2, combined_output_2);
-			fileObj.exportMapFile(interFilePathForCombinedOutput3, combined_output_3); 
+			//fileObj.exportMapFile(interFilePathForCombinedOutput1, combined_output_1);
+			//fileObj.exportMapFile(interFilePathForCombinedOutput2, combined_output_2);
+			//fileObj.exportMapFile(interFilePathForCombinedOutput3, combined_output_3); 
+			fileObj.exportMapFile(to_string(threadNumber+1), "1", combined_output_1);
+			fileObj.exportMapFile(to_string(threadNumber+1), "2", combined_output_2);
+			fileObj.exportMapFile(to_string(threadNumber+1), "3", combined_output_3);
 		}
 
 		// Free the DLL

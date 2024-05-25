@@ -58,11 +58,11 @@ string File_Management::getIntermediateFileLocation()
 //================================================================
 //================================================================
 
-vector<string> File_Management::importReduceFile() 
+vector<string> File_Management::importReduceFile(string partNumber)
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Sort_").append(fileBeingWorked);
+	string filepath = intermediateFilePath.append("\\").append("S").append(partNumber).append(".txt");
 	ifstream file(filepath);
 	if (!file.is_open()) {
 		cerr << "Failed to open file for reading." << endl;
@@ -84,11 +84,11 @@ vector<string> File_Management::importReduceFile()
 //================================================================
 
 
-vector<string> File_Management::importSortFile() 
+vector<string> File_Management::importSortFile(string fileNumber, string partNumber)
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Map_").append(fileBeingWorked);
+	string filepath = intermediateFilePath.append("\\").append("M").append(fileNumber).append(partNumber).append(".txt");
 	ifstream file(filepath);
 	if (!file.is_open()) {
 		cerr << "Failed to open file for reading." << endl;
@@ -135,10 +135,15 @@ vector<string> File_Management::importMapFile()
 //================================================================
 //================================================================
 
-void File_Management::exportMapFile(string intermediateFileLocation, const vector<string>& data)
+void File_Management::exportMapFile(string fileNumber, string partNumber, const vector<string>& data)
 {
 	ofstream file;
-	string filepath = intermediateFileLocation;
+	string intermediateFilePath = intermediateFileLocation;
+	string filepath = intermediateFilePath.append("\\").append("M").append(fileNumber).append(partNumber).append(".txt");
+
+	//string filepath = intermediateFileLocation;
+	//string outPutFileNameAndPath = intermediateFileLocation;
+	//outPutFileNameAndPath.append(fileName);
 
 	//string filepath = intermediateFilePath.append("\\").append("Map_").append("Stuff");
 	if (isFileEmpty(filepath)) {
@@ -169,11 +174,11 @@ void File_Management::exportMapFile(string intermediateFileLocation, const vecto
 //================================================================
 //================================================================
 
-void File_Management::exportSortFile(const vector<string>& data) 
+void File_Management::exportSortFile(string partNumber, const vector<string>& data)
 {
 	ofstream file;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("Sort_").append(fileBeingWorked);
+	string filepath = intermediateFilePath.append("\\").append("S").append(partNumber).append(".txt");
 	if (isFileEmpty(filepath)) {
 		file.open(filepath);
 	}
@@ -201,11 +206,24 @@ void File_Management::exportSortFile(const vector<string>& data)
 //================================================================
 //================================================================
 
-void File_Management::exportReduceFile(const vector<string>& data) 
+void File_Management::exportReduceFile(string partNumber, const vector<string>& data, bool thisIsTheFinalOutputFile)
 {
 	ofstream file;
-	string outputFilePath = outputFileLocation;
-	string filepath = outputFilePath.append("\\").append(fileBeingWorked);
+	string filepath = "";
+	string outputFilePath = "";
+	string intermediateFilePath = "";
+
+	if (thisIsTheFinalOutputFile)
+	{
+		outputFilePath = outputFileLocation;
+		filepath = outputFilePath.append("\\").append("Final_Output_File.txt");
+	}
+	else
+	{
+		intermediateFilePath = intermediateFileLocation;
+		filepath = intermediateFilePath.append("\\").append("R").append(partNumber).append(".txt");
+	}
+
 	if (isFileEmpty(filepath)) {
 		file.open(filepath);
 	}

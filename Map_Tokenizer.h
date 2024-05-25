@@ -15,7 +15,7 @@ public:
 
 	Map_Tokenizer(File_Management inputFileObj);
 
-	int runMap(string dllPathandName, string interFilePath, vector<string> fileParsedLineVector);
+	int runMap(string dllPathandName, string interFilePath, vector<string> fileParsedLineVector, int threadNumber);
 
 private:
 

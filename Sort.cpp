@@ -23,10 +23,12 @@ Sort::Sort(File_Management fileManager)
 
 // Wrapper function to execute sort
 void Sort::runSort() {
-	input = currentSortFile.importSortFile(); // store input vector
+	string fileNumber = "_TEST";
+	string partNumber = "_TEST";
+	input = currentSortFile.importSortFile(fileNumber, partNumber); // store input vector
 	//input = debug; // ******** DEBUG *********
 	sortInput();
-	currentSortFile.exportSortFile(output);
+	currentSortFile.exportSortFile(partNumber, output);
 }
 /*
 // member function to set input vector (not used with updates to File_Management)

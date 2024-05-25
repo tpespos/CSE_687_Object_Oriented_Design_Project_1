@@ -93,12 +93,13 @@ int workflow(File_Management my_File_Management)
     cout << "==========================================" << endl << endl;
     
     //=============================================================================================
-    /*
+    const int numOfReduceThreads = 3;
+
     cout << "Starting Sort Section" << endl;
     cout << "==========================================" << endl;
     cout << "SORTING FILES" << endl;
 
-    for (int i = 0; i < numThreads; i++)
+    for (int i = 0; i < numOfReduceThreads; i++)
     {
         my_File_Management.setFileBeingWorked(inputFiles[i]);
         // Sort
@@ -107,9 +108,8 @@ int workflow(File_Management my_File_Management)
     }
 
     cout << "==========================================" << endl << endl;
-
+    /*/
     //=============================================================================================
-    const int numOfReduceThreads = 17;
     thread reduceThreads[numOfReduceThreads];
 
 
@@ -141,7 +141,7 @@ int workflow(File_Management my_File_Management)
 
 
 
-void Map_For_Threads(File_Management my_File_Management, vector<string> inputFiles, string mapdllPathandName, int i)
+void Map_For_Threads(File_Management my_File_Management, vector<string> inputFiles, string mapdllPathandName, int threadNumber)
 {
 
     
@@ -150,7 +150,7 @@ void Map_For_Threads(File_Management my_File_Management, vector<string> inputFil
     //{
 
         //tic();
-        my_File_Management.setFileBeingWorked(inputFiles[i]);
+        my_File_Management.setFileBeingWorked(inputFiles[threadNumber]);
 
         // Map
         Map_Tokenizer mapTokenizerObj(my_File_Management);
@@ -165,7 +165,7 @@ void Map_For_Threads(File_Management my_File_Management, vector<string> inputFil
         interFilePath.append("\\").append("map_").append(fileName);
 
         // Map
-        mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector);
+        mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector, threadNumber);
 
 
         //toc();
