@@ -58,11 +58,21 @@ string File_Management::getIntermediateFileLocation()
 //================================================================
 //================================================================
 
-vector<string> File_Management::importReduceFile(string partNumber)
+vector<string> File_Management::importReduceFile(string partNumber, bool thisIsTheFinalOutputFile)
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("S").append(partNumber).append(".txt");
+	string filepath = "";
+
+	if (thisIsTheFinalOutputFile)
+	{
+		filepath = intermediateFilePath.append("\\").append("Smaster").append(".txt");
+	}
+	else
+	{
+		filepath = intermediateFilePath.append("\\").append("S").append(partNumber).append(".txt");
+	}
+
 	ifstream file(filepath);
 	if (!file.is_open()) {
 		cerr << "Failed to open file for reading." << endl;
@@ -84,11 +94,21 @@ vector<string> File_Management::importReduceFile(string partNumber)
 //================================================================
 
 
-vector<string> File_Management::importSortFile(string fileNumber, string partNumber)
+vector<string> File_Management::importSortFile(string fileNumber, string partNumber, bool thisIsTheFinalSortFile)
 {
 	vector<string> lines;
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("M").append(fileNumber).append(partNumber).append(".txt");
+	string filepath = "";
+
+	if (thisIsTheFinalSortFile)
+	{
+		filepath = intermediateFilePath.append("\\").append("R").append(partNumber).append(".txt");
+	}
+	else
+	{
+		filepath = intermediateFilePath.append("\\").append("M").append(fileNumber).append(partNumber).append(".txt");
+	}
+	
 	ifstream file(filepath);
 	if (!file.is_open()) {
 		cerr << "Failed to open file for reading." << endl;
@@ -174,11 +194,21 @@ void File_Management::exportMapFile(string fileNumber, string partNumber, const 
 //================================================================
 //================================================================
 
-void File_Management::exportSortFile(string partNumber, const vector<string>& data)
+void File_Management::exportSortFile(string partNumber, const vector<string>& data, bool thisIsTheFinalSortFile)
 {
 	ofstream file;
+	string filepath = "";
 	string intermediateFilePath = intermediateFileLocation;
-	string filepath = intermediateFilePath.append("\\").append("S").append(partNumber).append(".txt");
+
+	if (thisIsTheFinalSortFile)
+	{
+		filepath = intermediateFilePath.append("\\").append("Smaster").append(".txt");
+	}
+	else
+	{
+		filepath = intermediateFilePath.append("\\").append("S").append(partNumber).append(".txt");
+	}
+	
 	if (isFileEmpty(filepath)) {
 		file.open(filepath);
 	}
@@ -216,7 +246,7 @@ void File_Management::exportReduceFile(string partNumber, const vector<string>& 
 	if (thisIsTheFinalOutputFile)
 	{
 		outputFilePath = outputFileLocation;
-		filepath = outputFilePath.append("\\").append("Final_Output_File.txt");
+		filepath = outputFilePath.append("\\").append("Final_Output.txt");
 	}
 	else
 	{

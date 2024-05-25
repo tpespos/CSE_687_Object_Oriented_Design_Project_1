@@ -34,14 +34,14 @@ public:
 
 	vector<string> importMapFile();
 
-	vector<string> importSortFile(string fileNumber, string partNumber);
+	vector<string> importSortFile(string fileNumber, string partNumber, bool thisIsTheFinalSortFile);
 
-	vector<string> importReduceFile(string partNumber);
+	vector<string> importReduceFile(string partNumber, bool thisIsTheFinalOutputFile);
 
 	//static 
 	void exportMapFile(string fileNumber, string partNumber, const vector<string>& data);
 
-	void exportSortFile(string partNumber, const vector<string>& data);
+	void exportSortFile(string partNumber, const vector<string>& data, bool thisIsTheFinalSortFile);
 
 	void exportReduceFile(string partNumber, const vector<string>& data, bool finalOutputFile);
 

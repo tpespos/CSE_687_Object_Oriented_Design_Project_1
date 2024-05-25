@@ -25,10 +25,11 @@ Sort::Sort(File_Management fileManager)
 void Sort::runSort() {
 	string fileNumber = "_TEST";
 	string partNumber = "_TEST";
-	input = currentSortFile.importSortFile(fileNumber, partNumber); // store input vector
+	bool isThisTheMasterSortFunction = FALSE;
+	input = currentSortFile.importSortFile(fileNumber, partNumber, isThisTheMasterSortFunction); // store input vector
 	//input = debug; // ******** DEBUG *********
 	sortInput();
-	currentSortFile.exportSortFile(partNumber, output);
+	currentSortFile.exportSortFile(partNumber, output, isThisTheMasterSortFunction);
 }
 /*
 // member function to set input vector (not used with updates to File_Management)
