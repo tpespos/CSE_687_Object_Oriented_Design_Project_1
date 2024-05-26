@@ -6,16 +6,28 @@
 
 #include "Sort.h"
 
+// overload ostream operator to print vector for debugging purposes
+template <typename S>
+ostream& operator<<(ostream& os, const vector<S>& vector)
+{
+	// Printing all the elements
+	// using <<
+	for (auto element : vector) {
+		os << element << " ";
+	}
+	return os;
+}
+
 // Sort default constructor
 Sort::Sort()
-	: count{ 0 }, element{ 0 }
+	: numOfInputFiles{ 0 }, numOfOutputFiles{ 0 }
 {
 	// empty body (add error message)
 }
 
-// Sort constructor with one parameter
-Sort::Sort(File_Management fileManager)
-	: count{ 0 }, element{ 0 }
+// Sort constructor with three parameters
+Sort::Sort(File_Management fileManager, const int numOfMapThreads, const int numOfReduceThreads)
+	: numOfInputFiles{numOfMapThreads}, numOfOutputFiles{numOfReduceThreads}
 {
 	currentSortFile = fileManager; // copy file management obj to member data obj
 	//debug = { "(\"act\",1)", "(\"i\",1)", "(\"counts\",1)", "(\"i\",1)" };
@@ -23,118 +35,57 @@ Sort::Sort(File_Management fileManager)
 
 // Wrapper function to execute sort
 void Sort::runSort() {
-	string fileNumber = "_TEST";
-	string partNumber = "_TEST";
+	vector<string> temp;
+	string fileNumber;
+	string partNumber;
 	bool isThisTheMasterSortFunction = FALSE;
-	input = currentSortFile.importSortFile(fileNumber, partNumber, isThisTheMasterSortFunction); // store input vector
-	//input = debug; // ******** DEBUG *********
-	sortInput();
-	currentSortFile.exportSortFile(partNumber, output, isThisTheMasterSortFunction);
+
+	// loop to create required number of reduce files
+	for (int i = 1; i <= numOfOutputFiles; i++) {
+		partNumber = to_string(i);
+
+		// loop through all incoming MAP files
+		for (int j = 1; j <= numOfInputFiles; j++) {
+			fileNumber = to_string(j);
+			temp = currentSortFile.importSortFile(fileNumber, partNumber, isThisTheMasterSortFunction);
+			input.insert(input.end(), temp.begin(), temp.end()); // insert temp vector at end of input
+			temp.clear();
+		}
+
+		sortInput();
+		currentSortFile.exportSortFile(partNumber, output, isThisTheMasterSortFunction);
+
+		// clear buffers before moving to next set of files
+		output.clear();
+		input.clear();
+	}
 }
-/*
-// member function to set input vector (not used with updates to File_Management)
-void Sort::setInput(vector<string> inc) {
-	input = inc;
-};
 
-// member function to increase the value of count by 1
-void Sort::countUp() {
-	count++;
-};
+// Wrapper function to execute sort master
+void Sort::runSortMaster() {
+	vector<string> temp;
+	string fileNumber = to_string(1); // only partNumber is required to change for sort master
+	string partNumber;
+	bool isThisTheMasterSortFunction = TRUE;
 
-// member function to reset the value of count to zero
-void Sort::countReset() {
-	count = 0;
-};
-
-// member funciton to increase the value of element by 1
-void Sort::incrementElement() {
-	element++;
-};
-
-// member function to store the current element of the input vector
-void Sort::setCurrent() {
-	current = input[element];
-};
-
-// member function to count the number of times word appears in the input vector
-void Sort::compare() {
-	string word = tokenize(current); // get current word from input string
-
-	for (int i = 0; i < input.size(); i++) {
-		string temp = tokenize(input[i]); // get word to compare from input vector
-		if (word == temp) {
-			countUp(); // increase count
-		}
-	}
-};
-
-// member function to check if the current word is already in the output vector
-bool Sort::checkIfCounted() {
-	string word = tokenize(current); // get current word from input string
-
-	for (int i = 0; i < output.size(); i++) {
-		string temp = tokenize(output[i]); // get word to compare from input vector
-		if (word == temp) {
-			return true;
-		}
-	}
-	return false;
-};
-
-// member function to create reduced element
-string Sort::getNewStr() {
-	string openPar = "(";
-	string closePar = ")";
-	// string openQuote = "“";
-	// string closeQuote = "”";
-	string openQuote = "\"";
-	string closeQuote = "\"";
-	string comma = ",";
-	string leftBrack = "[1";
-	string rightBrack = "]";
-	string key = ", 1";
-	string temp;
-
-	// loop to add the correct amount of keys
-	for (int i = 0; i < count; i++) {
-		temp = temp + key;
+	// loop to create a single sorted output file (Smaster)
+	for (int i = 1; i <= numOfOutputFiles; i++) {
+		partNumber = to_string(i);
+		temp = currentSortFile.importSortFile(fileNumber, partNumber, isThisTheMasterSortFunction);
+		input.insert(input.end(), temp.begin(), temp.end()); // insert temp vector at end of input
+		temp.clear();
 	}
 
-	// assemble new string in reduced format
-	string new_str = openPar + openQuote + tokenize(current) + closeQuote + comma + leftBrack + temp + rightBrack + closePar;
-	return new_str;
-};
+	sortMaster();
+	currentSortFile.exportSortFile(partNumber, output, isThisTheMasterSortFunction);
 
-// member function to return token from current element of the input vector
-string Sort::tokenize(string original) {
-	stringstream ss(original); // convert current string into string stream
-	vector<string> tokens;
-	string temp_str;
+	// clear buffers
+	output.clear();
+	input.clear();
+}
 
-	//std::cin.clear(); // clear buffer
-	while (getline(ss, temp_str, '\"')) { // use double quotes as delimiter
-		tokens.push_back(temp_str);
-		//std::cin.clear(); // clear buffer
-		//cout << temp_str; // ********** DEBUG ***********
-	}
-
-	return tokens[1]; // return second element of token vector (should be the word from source text)
-};
-
-//*/
-
-string Sort::extractAndPrepareString(string inputStringExended, int inputCount) {
-
-	int firstQuote = 0;
-	int lastQuote = 0;
-	firstQuote = inputStringExended.find_first_of("\"");
-	lastQuote = inputStringExended.find_last_of("\"");
-
-	//that is output string
-	string word = inputStringExended.substr(firstQuote + 1, lastQuote - firstQuote - 1);
-
-	string rowToAdd = "(\"" + word + "\", [1";
+string Sort::extractAndPrepareString(string inputStringExtended, int inputCount) {
+	string rowToAdd = "(\"" + getWord(inputStringExtended) + "\", [1";
 	for (int i = 1; i < inputCount; i++)	{
 		rowToAdd += ", 1";
 	}
@@ -143,35 +94,83 @@ string Sort::extractAndPrepareString(string inputStringExended, int inputCount) 
 	return rowToAdd;
 }
 
+// Sort master version of extractAndPrepareString
+string Sort::decomposeAndBuildString(vector<string> inputStrings) {
+	// local variables
+	string arrayOfNumbers;
+
+	// decompose each string and store pieces in local variables
+	for (int i = 0; i < inputStrings.size(); i++) {
+		int firstBracket = 0;
+		int lastBracket = 0;
+		firstBracket = inputStrings[i].find_first_of("[");
+		lastBracket = inputStrings[i].find_first_of("]");
+		arrayOfNumbers.append(inputStrings[i].substr(firstBracket + 1, lastBracket - firstBracket - 1));
+
+		// only append a comma if it is not the last string in the vector
+		if (i + 1 < inputStrings.size()) {
+			arrayOfNumbers.append(", ");
+		}
+	}
+
+	// build output string
+	string rowToAdd = "(\"" + getWord(inputStrings[0]) + "\", " + "[" + arrayOfNumbers + "])";
+	return rowToAdd;
+}
+
+// Sort master
+void Sort::sortMaster() {
+	vector<string> extracted; // holds subset of strings of the same word to be sorted
+
+	sort(input.begin(), input.end());
+
+	for (int i = 0; i < input.size() - 1; i++) {
+
+		extracted.push_back(input[i]);
+		string currentWord = getWord(input[i]);
+		string nextWord = getWord(input[i + 1]);
+
+		if (currentWord != nextWord) {
+			output.push_back(decomposeAndBuildString(extracted));
+			extracted.clear(); // clear buffer
+
+			// check to make sure last element of input vector is accounted for
+			if (i + 1 == input.size() - 1) {
+				extracted.push_back(input[i + 1]);
+				output.push_back(decomposeAndBuildString(extracted));
+			}
+		}
+	}
+}
+
 // member function to sort input vector of strings
 void Sort::sortInput() {
 	
 	sort(input.begin(), input.end());
 	int numberOfWords = 0;
-	for (int i = 0; i < input.size()-1; i++)	{
+	for (int i = 0; i < input.size() - 1; i++)	{
 		numberOfWords++;
-		if (input[i]!=input[i+1])		{
+		if (input[i] != input[i + 1])		{
 			output.push_back(extractAndPrepareString(input[i], numberOfWords));
 			numberOfWords = 0;
+			
+			// check to make sure last element of input vector is accounted for
+			if (i + 1 == input.size() - 1) {
+				output.push_back(extractAndPrepareString(input[i + 1], 1));
+			}
 		}
 	}
-
-
-	/*
-
-	for (int i = 0; i < input.size(); i++) {
-		//countReset();
-		setCurrent();
-		cout << count << "   " << current << "\n";
-		bool check = checkIfCounted();
-		if (check == false) {
-			compare();
-			output.push_back(getNewStr());
-		}
-		incrementElement();
-	}
-	//*/
 };
+
+// member function to extract just the word from the current line
+string Sort::getWord(string inputString) {
+	int firstQuote = 0;
+	int lastQuote = 0;
+	firstQuote = inputString.find_first_of("\"");
+	lastQuote = inputString.find_last_of("\"");
+	string word = inputString.substr(firstQuote + 1, lastQuote - firstQuote - 1);
+	return word;
+}
 
 // member function to get the sorted output vector
 vector<string> Sort::getOutput() {

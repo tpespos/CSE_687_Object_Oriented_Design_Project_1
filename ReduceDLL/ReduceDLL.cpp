@@ -109,7 +109,7 @@ int reduce(string inputLine, string* outputString, int* outputCount) {
 
 
 int exportFunction(string key, int reducedValue, vector<string> *bufferToOutput) {
-	string rowToAdd = "(“" + key + "”,[" + to_string(reducedValue) + "])";
+	string rowToAdd = "(\"" + key + "\",[" + to_string(reducedValue) + "])";
 	bufferToOutput->push_back(rowToAdd);
 	return 0;
 }

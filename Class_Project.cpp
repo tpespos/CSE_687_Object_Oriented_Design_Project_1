@@ -79,7 +79,7 @@ int workflow(File_Management my_File_Management)
     const int numOfReduceThreads = 3;
     mapdllPathandName.append("//mapDLL.dll");
 
-    /*
+    
     //=============================================================================================
     
     thread mapThreads[numOfMapThreads];
@@ -102,6 +102,7 @@ int workflow(File_Management my_File_Management)
     cout << "All Map threads have completed their execution" << endl;
     cout << "==========================================" << endl << endl;
     
+
     //=============================================================================================
     
 
@@ -109,17 +110,15 @@ int workflow(File_Management my_File_Management)
     cout << "==========================================" << endl;
     cout << "SORTING FILES" << endl;
 
-    for (int i = 0; i < numOfReduceThreads; i++)
-    {
-        my_File_Management.setFileBeingWorked(inputFiles[i]);
-        // Sort
-        Sort sortObj(my_File_Management); // Looks like constructor runs sort operation
-        sortObj.runSort();
-    }
+    // Sort
+    Sort sortObj(my_File_Management, numOfMapThreads, numOfReduceThreads);
+    sortObj.runSort();
 
     cout << "==========================================" << endl << endl;
-    //*/
+    
+
     //=============================================================================================
+
 
     thread reduceThreads[numOfReduceThreads];
 
@@ -142,16 +141,26 @@ int workflow(File_Management my_File_Management)
     cout << "==========================================" << endl;
     toc();
     cout << endl;
-    //*/
-    //=============================================================================================
-    //master sort
-    cout << "Starting Master Sort Section" << endl;
+  
 
     //=============================================================================================
+    
+
+    //master sort
+    cout << "Starting Master Sort Section" << endl;
+    Sort sortMasterObj(my_File_Management, numOfMapThreads, numOfReduceThreads);
+    sortMasterObj.runSortMaster();
+
+
+    //=============================================================================================
+   
+    
     //master reduce
     cout << "Starting Master Reduce Section" << endl;
     Reduce reduceObj(my_File_Management, 0, true);
     reduceObj.reduceCallDLL();
+    
+    
     //=============================================================================================
 
     return 0;

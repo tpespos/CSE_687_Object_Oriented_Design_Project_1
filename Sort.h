@@ -21,11 +21,14 @@ public:
 	// default constructor with no parameters
 	Sort();
 
-	// Sort constructor with one parameter
-	Sort(File_Management my_File_Management);
+	// Sort constructor with three parameters
+	Sort(File_Management my_File_Management, const int numOfMapThreads, const int numOfReduceThreads);
 
 	// Wrapper function to execute sort
 	void runSort();
+
+	// Wrapper function to execute sort master
+	void runSortMaster();
 
 	// member function to sort input vector of strings
 	void sortInput();
@@ -33,43 +36,24 @@ public:
 	// member function to get the sorted output vector
 	vector<string> getOutput();
 
-	string extractAndPrepareString(string inputStringExended, int inputCount);
+	string extractAndPrepareString(string inputStringExtended, int inputCount);
+
+	string decomposeAndBuildString(vector<string> inputStrings);
+
+	void sortMaster();
 
 private:
 	// ** Helper Functions **
-	// set input vector
-	void setInput(vector<string> inc);
+	
+	// member function to extract just the word from the current line
+	string getWord(string inputString);
 
-	// increase the value of count by 1
-	void countUp();
-
-	// reset the value of count to zero
-	void countReset();
-
-	// increase the value of element by 1
-	void incrementElement();
-
-	// store the current element of the input vector
-	void setCurrent();
-
-	// count the number of times word appears in the input vector
-	void compare();
-
-	// check if the current word is already in the output vector
-	bool checkIfCounted();
-
-	// create reduced element
-	string getNewStr();
-
-	// return token from current element of the input vector
-	string tokenize(string original);
 
 	// ** Member Data **
-	int count; // stores the number of times a word appears in a vector
-	int element; // stores the element number of the input vector currently being used
-	string current; // stores the current string from the input vector
 	vector<string> input; // stores incoming vector to sort
 	vector<string> output; // stores the new outgoing vector with elements in the reduced format
 	File_Management currentSortFile; // stores local copy of file management object
 	vector<string> debug; // stores a test vector of strings for debugging
+	const int numOfInputFiles; // number of files to be sorted (equal to number of map threads)
+	const int numOfOutputFiles; // number of files to be output (equal to number of files to be reduced)
 };

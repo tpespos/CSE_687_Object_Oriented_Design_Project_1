@@ -55,5 +55,8 @@
     <Text Include="ReduceSample.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="Config_File\Config.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

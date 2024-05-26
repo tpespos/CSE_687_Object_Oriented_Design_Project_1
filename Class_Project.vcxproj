@@ -145,6 +145,7 @@
     <ClInclude Include="Sort.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Config_File\Config.txt" />
     <Text Include="IntermediateSample.txt" />
     <Text Include="ReduceSample.txt" />
   </ItemGroup>
