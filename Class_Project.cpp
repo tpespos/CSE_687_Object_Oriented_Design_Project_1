@@ -54,7 +54,12 @@ int main()
     //Reduce myReducer;
 
     //my_File_Management.promptUserForDirectories();
+
+    cout << "Start Loading Config File" << endl;
+    cout << "=================================================" << endl;
+    cout << "LOADING CONFIG FILE" << endl;
     my_File_Management.readConfigFileForDirectories();
+    cout << "=================================================" << endl << endl;
     
     int check = workflow(my_File_Management);
     if (check)
@@ -85,7 +90,7 @@ int workflow(File_Management my_File_Management)
     thread mapThreads[numOfMapThreads];
 
     cout << endl << "Starting Map Section" << endl;
-    cout << "==========================================" << endl;
+    cout << "=================================================" << endl;
 
     tic();
     // Create multiple threads
@@ -100,21 +105,21 @@ int workflow(File_Management my_File_Management)
     }
 
     cout << "All Map threads have completed their execution" << endl;
-    cout << "==========================================" << endl << endl;
+    cout << "=================================================" << endl << endl << endl;
     
 
     //=============================================================================================
     
 
     cout << "Starting Sort Section" << endl;
-    cout << "==========================================" << endl;
+    cout << "=================================================" << endl;
     cout << "SORTING FILES" << endl;
 
     // Sort
     Sort sortObj(my_File_Management, numOfMapThreads, numOfReduceThreads);
     sortObj.runSort();
 
-    cout << "==========================================" << endl << endl;
+    cout << "=================================================" << endl << endl << endl;
     
 
     //=============================================================================================
@@ -124,7 +129,7 @@ int workflow(File_Management my_File_Management)
 
 
     cout << "Starting Reduce Section" << endl;
-    cout << "==========================================" << endl;
+    cout << "=================================================" << endl;
 
     // Create multiple threads
     for (int i = 0; i < numOfReduceThreads; ++i) {
@@ -138,9 +143,7 @@ int workflow(File_Management my_File_Management)
     }
     
     cout << "All Reduce threads have completed their execution" << endl;
-    cout << "==========================================" << endl;
-    toc();
-    cout << endl;
+    cout << "=================================================" << endl << endl << endl;
   
 
     //=============================================================================================
@@ -148,8 +151,11 @@ int workflow(File_Management my_File_Management)
 
     //master sort
     cout << "Starting Master Sort Section" << endl;
+    cout << "=================================================" << endl;
+    cout << "SORTING FILES" << endl;
     Sort sortMasterObj(my_File_Management, numOfMapThreads, numOfReduceThreads);
     sortMasterObj.runSortMaster();
+    cout << "=================================================" << endl << endl << endl;
 
 
     //=============================================================================================
@@ -157,9 +163,12 @@ int workflow(File_Management my_File_Management)
     
     //master reduce
     cout << "Starting Master Reduce Section" << endl;
+    cout << "=================================================" << endl;
+    cout << "REDUCING FILES" << endl;
     Reduce reduceObj(my_File_Management, 0, true);
     reduceObj.reduceCallDLL();
-    
+    cout << "=================================================" << endl << endl << endl;
+    toc();
     
     //=============================================================================================
 
