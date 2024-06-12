@@ -1,3 +1,4 @@
+
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -6,12 +7,10 @@
 #include <sys/stat.h>
 #include "framework.h"
 #include "pch.h"
-
 #include "File_Management.h"
 
 using namespace std;
 namespace fs = std::filesystem;
-
 
 //================================================================
 //================================================================
@@ -19,11 +18,8 @@ namespace fs = std::filesystem;
 
 void File_Management::setFileBeingWorked(string filePath)
 {
-
 	string file = extractFileName(filePath);
-
 	fileBeingWorked = file;
-
 }
 
 string File_Management::getFileBeingWorked()
@@ -31,17 +27,14 @@ string File_Management::getFileBeingWorked()
 	return fileBeingWorked;
 }
 
-
 //================================================================
 //================================================================
 //================================================================
 
 string File_Management::extractFileName(const string& filePath) 
 {
-
 	fs::path path(filePath);
 	return path.filename().string();
-
 }
 
 int File_Management::getNumberOfInputFiles()
@@ -53,7 +46,6 @@ string File_Management::getIntermediateFileLocation()
 {
 	return intermediateFileLocation;
 }
-
 
 //================================================================
 //================================================================
@@ -75,13 +67,15 @@ vector<string> File_Management::importReduceFile(string partNumber, bool thisIsT
 	}
 
 	ifstream file(filepath);
-	if (!file.is_open()) {
+	if (!file.is_open())
+	{
 		cerr << "Failed to open file for reading." << endl;
 		return lines;
 	}
 
 	string line;
-	while (getline(file, line)) {
+	while (getline(file, line))
+	{
 		lines.push_back(line);
 	}
 
@@ -89,11 +83,9 @@ vector<string> File_Management::importReduceFile(string partNumber, bool thisIsT
 	return lines;
 }
 
-
 //================================================================
 //================================================================
 //================================================================
-
 
 vector<string> File_Management::importSortFile(string fileNumber, string partNumber, bool thisIsTheFinalSortFile)
 {
@@ -111,13 +103,15 @@ vector<string> File_Management::importSortFile(string fileNumber, string partNum
 	}
 	
 	ifstream file(filepath);
-	if (!file.is_open()) {
+	if (!file.is_open())
+	{
 		cerr << "Failed to open file for reading." << endl;
 		return lines;
 	}
 
 	string line;
-	while (getline(file, line)) {
+	while (getline(file, line))
+	{
 		lines.push_back(line);
 	}
 
@@ -125,11 +119,9 @@ vector<string> File_Management::importSortFile(string fileNumber, string partNum
 	return lines;
 }
 
-
 //================================================================
 //================================================================
 //================================================================
-
 
 vector<string> File_Management::importMapFile() 
 {
@@ -138,13 +130,15 @@ vector<string> File_Management::importMapFile()
 	string filepath = inputFilePath.append("\\").append(fileBeingWorked);
 
 	ifstream file(filepath);
-	if (!file.is_open()) {
+	if (!file.is_open())
+	{
 		cerr << "Failed to open file for reading." << endl;
 		return lines;
 	}
 
 	string line;
-	while (getline(file, line)) {
+	while (getline(file, line))
+	{
 		lines.push_back(line);
 	}
 
@@ -162,33 +156,32 @@ void File_Management::exportMapFile(string fileNumber, string partNumber, const 
 	string intermediateFilePath = intermediateFileLocation;
 	string filepath = intermediateFilePath.append("\\").append("M").append(fileNumber).append(partNumber).append(".txt");
 
-	//string filepath = intermediateFileLocation;
-	//string outPutFileNameAndPath = intermediateFileLocation;
-	//outPutFileNameAndPath.append(fileName);
-
-	//string filepath = intermediateFilePath.append("\\").append("Map_").append("Stuff");
-	if (isFileEmpty(filepath)) {
+	if (isFileEmpty(filepath))
+	{
 		file.open(filepath);
 	}
-	else {
+	else
+	{
 		file.open(filepath, ios::app); // Open file in append mode
 		file << endl; // Add a newline to separate appended data
 	}
 
-	if (!file.is_open()) {
+	if (!file.is_open())
+	{
 		cerr << "Failed to open file for writing." << endl;
 		return;
 	}
 
-	for (size_t i = 0; i < data.size(); ++i) {
+	for (size_t i = 0; i < data.size(); ++i)
+	{
 		file << data[i];
-		if (i != data.size() - 1) {
+		if (i != data.size() - 1)
+		{
 			file << endl;
 		}
 	}
 	file.close();
 }
-
 
 
 //================================================================
@@ -210,26 +203,30 @@ void File_Management::exportSortFile(string partNumber, const vector<string>& da
 		filepath = intermediateFilePath.append("\\").append("S").append(partNumber).append(".txt");
 	}
 	
-	if (isFileEmpty(filepath)) {
+	if (isFileEmpty(filepath))
+	{
 		file.open(filepath);
 	}
-	else {
+	else
+	{
 		file.open(filepath, ios::app); // Open file in append mode
 		file << endl; // Add a newline to separate appended data
 	}
 
-	if (!file.is_open()) {
+	if (!file.is_open())
+	{
 		cerr << "Failed to open file for writing." << endl;
 		return;
 	}
 
-	for (size_t i = 0; i < data.size(); ++i) {
+	for (size_t i = 0; i < data.size(); ++i)
+	{
 		file << data[i];
-		if (i != data.size() - 1) {
+		if (i != data.size() - 1)
+		{
 			file << endl;
 		}
 	}
-
 	file.close();
 }
 
@@ -255,26 +252,30 @@ void File_Management::exportReduceFile(string partNumber, const vector<string>& 
 		filepath = intermediateFilePath.append("\\").append("R").append(partNumber).append(".txt");
 	}
 
-	if (isFileEmpty(filepath)) {
+	if (isFileEmpty(filepath))
+	{
 		file.open(filepath);
 	}
-	else {
+	else
+	{
 		file.open(filepath, ios::app); // Open file in append mode
 		file << endl; // Add a newline to separate appended data
 	}
 
-	if (!file.is_open()) {
+	if (!file.is_open())
+	{
 		cerr << "Failed to open file for writing." << endl;
 		return;
 	}
 
-	for (size_t i = 0; i < data.size(); ++i) {
+	for (size_t i = 0; i < data.size(); ++i)
+	{
 		file << data[i];
-		if (i != data.size() - 1) {
+		if (i != data.size() - 1)
+		{
 			file << endl;
 		}
 	}
-
 	file.close();
 }
 
@@ -288,15 +289,12 @@ void File_Management::outputSuccessFile()
 	string outputFilePath = outputFileLocation;
 	string filepath = outputFilePath.append("\\").append("SUCCESS.txt");
 	file.open(filepath);
-
 	file.close();
-
 }
 
 //================================================================
 //================================================================
 //================================================================
-
 
 // check the first charicter of the file, and check if it's the end of file character
 bool File_Management::isFileEmpty(const string& filename) 
@@ -312,9 +310,7 @@ bool File_Management::isFileEmpty(const string& filename)
 vector<string> File_Management::getInputFiles()
 {
 	searchThroughInputDirectory();
-
 	nInputFiles = inputFiles.size();
-
 	return inputFiles;
 }
 
@@ -325,7 +321,6 @@ vector<string> File_Management::getInputFiles()
 vector<string> File_Management::getIntermediateFiles()
 {
 	searchThroughIntermediateDirectory();
-
 	return intermediateFiles;
 }
 
@@ -350,17 +345,15 @@ string File_Management::getDLLFileLocation()
 
 void File_Management::searchThroughIntermediateDirectory()
 {
-
 	// search for files inside of the input file directory and append them to the inputfiles vector
 	for (const auto& entry : fs::directory_iterator(intermediateFileLocation)) 
 	{
-		if (entry.is_regular_file()) {
+		if (entry.is_regular_file())
+		{
 			intermediateFiles.push_back(entry.path().string());
 		}
 	}
-
 }
-
 
 void File_Management::setInputFileLocation(string filepath)
 {
@@ -372,7 +365,6 @@ void File_Management::setIntermediateFileLocation(string filepath)
 	intermediateFileLocation = filepath;
 }
 
-
 //================================================================
 //================================================================
 //================================================================
@@ -383,11 +375,11 @@ void File_Management::searchThroughInputDirectory()
 	// search for files inside of the input file directory and append them to the inputfiles vector
 	for (const auto& entry : fs::directory_iterator(inputFileLocation)) 
 	{
-		if (entry.is_regular_file()) {
+		if (entry.is_regular_file())
+		{
 			inputFiles.push_back(entry.path().string());
 		}
 	}
-
 }
 
 //================================================================
@@ -401,27 +393,15 @@ int File_Management::searchThroughDllDirectory()
 	// search for files inside of the input file directory and append them to the inputfiles vector
 	for (const auto& entry : fs::directory_iterator(dllFileLocation))
 	{
-		if (entry.is_regular_file()) {
+		if (entry.is_regular_file())
+		{
 			dllFiles.push_back(entry.path().string());
 		}
 	}
 
-	/*
-	if (DEBUG == 1)	{
-		cout << "\nFILES FOUND: \n";
-		for (int i = 0; i < dllFiles.size(); i++)		{
-			cout << dllFiles[i]<< "\n";
-		}
-		cout << "\n";
-	}
-	//*/
-	
-	
 	for (auto file : dllFiles)
 	{
-		
 		file = file.substr(file.find_last_of("\\") + 1, file.length() - file.find_last_of("\\"));
-		
 		if (file == "mapDLL.dll")
 		{
 			numberOfCorrectDllFiles++;
@@ -444,7 +424,6 @@ int File_Management::searchThroughDllDirectory()
 		cout << "Desired DLL Files NOT FOUND!" << endl; //Exiting the program" << endl;
 		return 0;
 	}
-
 	return 1;
 }
 
@@ -456,7 +435,6 @@ void File_Management::promptUserForDirectories()
 {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////REMOVE DEBUG HERE!!!!!
 	DEBUG = 1;
-
 
 	struct stat sb;
 
@@ -475,7 +453,6 @@ void File_Management::promptUserForDirectories()
 		cin >> inputFileLocation;
 	}
 	
-
 	const char* dir = inputFileLocation.c_str();
 
 	while (stat(dir, &sb) != 0)
@@ -499,7 +476,6 @@ void File_Management::promptUserForDirectories()
 	{
 		cin >> outputFileLocation;
 	}
-
 
 	dir = outputFileLocation.c_str();
 
@@ -547,7 +523,6 @@ void File_Management::promptUserForDirectories()
 			//dllFileLocation = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\DLLs";
 			//dllFileLocation = "C:\\Users\\lodin\\Documents\\College_work\\Spring2024\\OOD_Wensday_Class\\Project1\\code\\DLLs";
 			dllFileLocation = "C:\\Users\\tpesp\\source\\repos\\CSE-687-Object-Oriented-Design-Project-1\\DLLs";
-		
 		}
 		else
 		{
@@ -569,9 +544,7 @@ void File_Management::promptUserForDirectories()
 		didWeFindTheRightDllFiles = searchThroughDllDirectory();
 		numberOfTimesThroughLoop++;
 	}
-
 }
-
 
 //================================================================
 //================================================================
@@ -591,7 +564,6 @@ void File_Management::readConfigFileForDirectories()
 		return;
 	}
 
-	
 	while (getline(file, line)) {
 
 		if (numberOfTimesThroughLoop == 0)

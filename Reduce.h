@@ -21,12 +21,10 @@ public:
 
 	//destructor
 
-
 	//methods
 	int reduceCallDLL();
 
 	int fileManagerUpdate(File_Management newFileManeger);
-
 
 private:
 	//vars
@@ -35,7 +33,6 @@ private:
 	File_Management fileManager;
 	int partNumber;
 	bool isMaster;
-
 	int DEBUG;
 
 };

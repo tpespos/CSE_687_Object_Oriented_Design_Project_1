@@ -1,12 +1,11 @@
+
 #include "Reduce.h"
 #include "File_Management.h"
 #include "framework.h"
 
-
 Reduce::Reduce() {
     //do nothing
 }
-
 
 Reduce::Reduce(File_Management files, int partNum, bool isMasterInput) {
     fileManagerUpdate(files);
@@ -31,11 +30,6 @@ int Reduce::reduceCallDLL() {
             filepathToDLL = DllFilesToSearch[i];
         }
     }
-    //cout << "\ndllFileName: " << filepathToDLL;
-    
-    //filepathToDLL = DllFilesToSearch[1];
-
-    //string filepathToDLLs = "C:\\Users\\lande\\source\\repos\\tpespos\\CSE_687_Object_Oriented_Design_Project_1\\x64\\Debug\\ReduceDLL.dll";
 
     wstring temp = wstring(filepathToDLL.begin(), filepathToDLL.end());
     LPCWSTR dummy = temp.c_str();
@@ -63,5 +57,3 @@ int Reduce::reduceCallDLL() {
 
     return 0;
 }
-
-

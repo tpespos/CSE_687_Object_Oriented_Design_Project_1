@@ -31,20 +31,15 @@ char cwd[4096]; // Global for get current Dir
 // Function Definitions
 
 void tic(void) {
-
     start_time = clock();
-
 }
 
 void toc() {
-
     clock_t t = clock();
     t = t - start_time;
     double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
     printf("This code block took %f seconds to execute \n", time_taken);
-
 }
-
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -54,9 +49,7 @@ void Map_For_Threads(File_Management my_File_Management, vector<string> inputFil
 void Reduce_For_Threads(File_Management my_File_Management, vector<string> inputFiles, int i);
 void error(const char* msg);
 void communicateWithServer(const char* serverIp, int port, const char* message, bool waitForDone);
-//void communicateWithServer(const char* serverIp, int port, const std::vector<std::string>& messages);
 void testCommunication(const char* serverIp, int port, const char* message, bool waitForDone, SOCKET connectSocket);
-
 
 //#################################################################
 //#################################################################
@@ -66,10 +59,7 @@ int main()
 {
     tic();
     File_Management my_File_Management;
-    //Reduce myReducer;
-
-    //my_File_Management.promptUserForDirectories();
-
+   
     cout << "Start Loading Config File" << endl;
     cout << "=================================================" << endl;
     cout << "LOADING CONFIG FILE" << endl;
@@ -99,17 +89,12 @@ int workflow(File_Management my_File_Management)
     const int numOfReduceThreads = 3;
     mapdllPathandName.append("//mapDLL.dll");
 
-    
     //=============================================================================================
     
     thread mapThreads[numOfMapThreads];
 
     cout << endl << "Starting Map Section" << endl;
     cout << "=================================================" << endl;
-
-
-    //SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
-    //vector<string> test;
 
     WSADATA wsaData;
     SOCKET connectSocket = INVALID_SOCKET;
@@ -142,45 +127,16 @@ int workflow(File_Management my_File_Management)
 
     for (int i = 0; i < my_File_Management.getNumberOfInputFiles(); i++)
     {
-
-    //int i = 0;
-        //tic();
         my_File_Management.setFileBeingWorked(inputFiles[i]);
-
         string message = inputFiles[i];
-        //test[0] = message;
         if (i == my_File_Management.getNumberOfInputFiles()-1)
         {
             testCommunication(serverIp, PORT1, message.c_str(), true, connectSocket);
-            //communicateWithServer(serverIp, PORT1, message.c_str(), true);
         }
         else
         {
             testCommunication(serverIp, PORT1, message.c_str(), false, connectSocket);
-            //communicateWithServer(serverIp, PORT1, message.c_str(), false);
         }
-        
-        //communicateWithServer(serverIp, PORT1, inputFiles);
-
-
-        /*
-        // Map
-        Map_Tokenizer mapTokenizerObj(my_File_Management);
-        vector<string> fileParsedLineVector = my_File_Management.importMapFile();
-
-        // Create file path/name for saving each intermediate file
-        string fileName = my_File_Management.getFileBeingWorked();
-
-        //cout << my_File_Management.getIntermediateFileLocation();
-
-        string interFilePath = my_File_Management.getIntermediateFileLocation();
-        interFilePath.append("\\").append("map_").append(fileName);
-
-        // Map
-        mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector, threadNumber);
-        */
-
-        //toc();
     }
 
     // Cleanup
@@ -191,25 +147,6 @@ int workflow(File_Management my_File_Management)
 
     cout << "All Map threads have completed their execution" << endl;
     cout << "=================================================" << endl << endl << endl;
-
-
-
-    /*
-    //tic();
-    // Create multiple threads
-    for (int i = 0; i < numOfMapThreads; ++i) {
-        cout << "Map Threatz Create: " << i + 1 << std::endl;
-        mapThreads[i] = thread(Map_For_Threads, my_File_Management, inputFiles, mapdllPathandName, i);
-    }
-
-    // Wait for all threads to finish execution
-    for (int i = 0; i < numOfMapThreads; ++i) {
-        mapThreads[i].join();
-    }
-
-    cout << "All Map threads have completed their execution" << endl;
-    cout << "=================================================" << endl << endl << endl;
-    */
 
     //=============================================================================================
     
@@ -230,12 +167,8 @@ int workflow(File_Management my_File_Management)
     cout << "Starting Reduce Section" << endl;
     cout << "=================================================" << endl;
 
-    //WSADATA wsaData;
     connectSocket = INVALID_SOCKET;
-    //struct sockaddr_in serverAddr;
-    //char buffer[BUFFER_SIZE];
-    //int result;
-
+ 
     // Initialize Winsock
     result = WSAStartup(MAKEWORD(2, 2), &wsaData);
     if (result != 0) {
@@ -262,16 +195,13 @@ int workflow(File_Management my_File_Management)
     for (int i = 0; i < numOfReduceThreads; ++i) {
         string message = to_string(i+1);
 
-
         if (i == numOfReduceThreads - 1)
         {
             testCommunication(serverIp, PORT2, message.c_str(), true, connectSocket);
-            //communicateWithServer(serverIp, PORT2, message.c_str(), true);
         }
         else
         {
             testCommunication(serverIp, PORT2, message.c_str(), false, connectSocket);
-            //communicateWithServer(serverIp, PORT2, message.c_str(), false);
         }
     }
 
@@ -281,31 +211,7 @@ int workflow(File_Management my_File_Management)
 
     cout << "All Reduce threads have completed their execution" << endl;
     cout << "=================================================" << endl << endl << endl;
-    /*
-    thread reduceThreads[numOfReduceThreads];
-
-
-    cout << "Starting Reduce Section" << endl;
-    cout << "=================================================" << endl;
-
-    // Create multiple threads
-    for (int i = 0; i < numOfReduceThreads; ++i) {
-        cout << "Reduce Threatz Create: " << i + 1 << std::endl;
-        reduceThreads[i] = thread(Reduce_For_Threads, my_File_Management, inputFiles, i);
-    }
-
-    // Wait for all threads to finish execution
-    for (int i = 0; i < numOfReduceThreads; ++i) {
-        reduceThreads[i].join();
-    }
-    
-    cout << "All Reduce threads have completed their execution" << endl;
-    cout << "=================================================" << endl << endl << endl;
-  
-
-    //=============================================================================================
-    */
-
+   
     //master sort
     cout << "Starting Master Sort Section" << endl;
     cout << "=================================================" << endl;
@@ -314,10 +220,8 @@ int workflow(File_Management my_File_Management)
     sortMasterObj.runSortMaster();
     cout << "=================================================" << endl << endl << endl;
 
-
     //=============================================================================================
    
-    
     //master reduce
     cout << "Starting Master Reduce Section" << endl;
     cout << "=================================================" << endl;
@@ -338,34 +242,23 @@ int workflow(File_Management my_File_Management)
 //#################################################################
 
 void Map_For_Threads(File_Management my_File_Management, vector<string> inputFiles, string mapdllPathandName, int threadNumber)
-{
+{   
+    my_File_Management.setFileBeingWorked(inputFiles[threadNumber]);
 
-    
+    // Map
+    Map_Tokenizer mapTokenizerObj(my_File_Management);
+    vector<string> fileParsedLineVector = my_File_Management.importMapFile();
 
-    //for (int i = 0; i < my_File_Management.getNumberOfInputFiles(); i++)
-    //{
+    // Create file path/name for saving each intermediate file
+    string fileName = my_File_Management.getFileBeingWorked();
 
-        //tic();
-        my_File_Management.setFileBeingWorked(inputFiles[threadNumber]);
+    //cout << my_File_Management.getIntermediateFileLocation();
 
-        // Map
-        Map_Tokenizer mapTokenizerObj(my_File_Management);
-        vector<string> fileParsedLineVector = my_File_Management.importMapFile();
+    string interFilePath = my_File_Management.getIntermediateFileLocation();
+    interFilePath.append("\\").append("map_").append(fileName);
 
-        // Create file path/name for saving each intermediate file
-        string fileName = my_File_Management.getFileBeingWorked();
-
-        //cout << my_File_Management.getIntermediateFileLocation();
-
-        string interFilePath = my_File_Management.getIntermediateFileLocation();
-        interFilePath.append("\\").append("map_").append(fileName);
-
-        // Map
-        mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector, threadNumber);
-
-
-        //toc();
-    //}
+    // Map
+    mapTokenizerObj.runMap(mapdllPathandName, interFilePath, fileParsedLineVector, threadNumber);
 }
 
 //#################################################################
@@ -374,54 +267,9 @@ void Map_For_Threads(File_Management my_File_Management, vector<string> inputFil
 
 void Reduce_For_Threads(File_Management my_File_Management, vector<string> inputFiles, int i)
 {
-
-    //my_File_Management.setFileBeingWorked(inputFiles[i]);
-
-    //for (int i = 0; i < my_File_Management.getNumberOfInputFiles(); i++)
-    //{
-
     Reduce reduceObj(my_File_Management, i+1, false);
     reduceObj.reduceCallDLL();
-
-
-    //toc();
-//}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void error(const char* msg) {
     std::cerr << msg << " Error Code: " << WSAGetLastError() << std::endl;
@@ -435,7 +283,8 @@ void testCommunication(const char* serverIp, int port, const char* message, bool
 
     // Send message to server
     result = send(connectSocket, message, strlen(message), 0);
-    if (result == SOCKET_ERROR) {
+    if (result == SOCKET_ERROR)
+    {
         error("Send failed");
     }
 
@@ -443,32 +292,37 @@ void testCommunication(const char* serverIp, int port, const char* message, bool
     {
         // Receive response from server
         result = recv(connectSocket, buffer, BUFFER_SIZE, 0);
-        if (result > 0) {
+        if (result > 0)
+        {
             buffer[result] = '\0';
             cout << "Incoming from port " << port << ": " << buffer << endl;
         }
-        else if (result == 0) {
+        else if (result == 0)
+        {
             cout << "Connection closed by server" << endl;
         }
-        else {
+        else
+        {
             error("Recv failed");
         }
     }
 
-
-
     if (waitForDone) {
-        while (true) {
+        while (true)
+        {
             // Wait for the "Done" message from the server
             result = recv(connectSocket, buffer, BUFFER_SIZE, 0);
-            if (result > 0) {
+            if (result > 0)
+            {
                 buffer[result] = '\0';
                 cout << "Incoming from port " << port << ": " << buffer << endl;
-                if (std::string(buffer) == "Done") {
+                if (std::string(buffer) == "Done")
+                {
                     break;
                 }
             }
-            else if (result == 0) {
+            else if (result == 0)
+            {
                 //std::cout << " ########### Connection closed by server" << std::endl;
                 //break;
             }
@@ -479,7 +333,8 @@ void testCommunication(const char* serverIp, int port, const char* message, bool
     }
 }
 
-void communicateWithServer(const char* serverIp, int port, const char* message, bool waitForDone) {
+void communicateWithServer(const char* serverIp, int port, const char* message, bool waitForDone)
+{
     
     WSADATA wsaData;
     SOCKET connectSocket = INVALID_SOCKET;
@@ -489,13 +344,15 @@ void communicateWithServer(const char* serverIp, int port, const char* message, 
 
     // Initialize Winsock
     result = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (result != 0) {
+    if (result != 0)
+    {
         error("WSAStartup failed");
     }
 
     // Create socket
     connectSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (connectSocket == INVALID_SOCKET) {
+    if (connectSocket == INVALID_SOCKET)
+    {
         error("Error creating socket");
     }
 
@@ -506,14 +363,16 @@ void communicateWithServer(const char* serverIp, int port, const char* message, 
 
     // Connect to server
     result = connect(connectSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
-    if (result == SOCKET_ERROR) {
+    if (result == SOCKET_ERROR)
+    {
         error("Connect failed");
     }
 
 
     // Send message to server
     result = send(connectSocket, message, strlen(message), 0);
-    if (result == SOCKET_ERROR) {
+    if (result == SOCKET_ERROR)
+    {
         error("Send failed");
     }
 
@@ -521,115 +380,50 @@ void communicateWithServer(const char* serverIp, int port, const char* message, 
     {
         // Receive response from server
         result = recv(connectSocket, buffer, BUFFER_SIZE, 0);
-        if (result > 0) {
+        if (result > 0)
+        {
             buffer[result] = '\0';
             std::cout << "Received message from server on port " << port << ": " << buffer << std::endl;
         }
-        else if (result == 0) {
+        else if (result == 0)
+        {
             std::cout << "Connection closed by server" << std::endl;
         }
-        else {
+        else
+        {
             error("Recv failed");
         }
     }
 
-
-
-    if (waitForDone) {
-        while (true) {
+    if (waitForDone)
+    {
+        while (true)
+        {
             // Wait for the "Done" message from the server
             result = recv(connectSocket, buffer, BUFFER_SIZE, 0);
-            if (result > 0) {
+            if (result > 0)
+            {
                 buffer[result] = '\0';
                 std::cout << "Received message from server on port " << port << ": " << buffer << std::endl;
-                if (std::string(buffer) == "Done") {
+                if (std::string(buffer) == "Done")
+                {
                     break;
                 }
             }
-            else if (result == 0) {
+            else if (result == 0)
+            {
                 //std::cout << " ########### Connection closed by server" << std::endl;
                 //break;
             }
-            else {
+            else
+            {
                 error("Recv failed");
             }
         }
     }
 
-    
     // Cleanup
     closesocket(connectSocket);
     WSACleanup();
     
 }
-
-
-
-
-
-/*
-void communicateWithServer(const char* serverIp, int port, const std::vector<std::string>& messages) {
-    WSADATA wsaData;
-    SOCKET connectSocket = INVALID_SOCKET;
-    struct sockaddr_in serverAddr;
-    std::string buffer(BUFFER_SIZE, 0);
-    int result;
-
-    // Initialize Winsock
-    result = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (result != 0) {
-        error("WSAStartup failed");
-    }
-
-    // Create socket
-    connectSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (connectSocket == INVALID_SOCKET) {
-        error("Error creating socket");
-    }
-
-    // Setup server address
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(port);
-    inet_pton(AF_INET, serverIp, &serverAddr.sin_addr);
-
-    // Connect to server
-    result = connect(connectSocket, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
-    if (result == SOCKET_ERROR) {
-        error("Connect failed");
-    }
-
-    for (const auto& message : messages) {
-        // Send message to server
-        result = send(connectSocket, message.c_str(), message.size(), 0);
-        if (result == SOCKET_ERROR) {
-            error("Send failed");
-        }
-
-        // Receive response from server
-        int count = 1;
-        //while (count < messages.size())
-        //{
-            result = recv(connectSocket, &buffer[0], BUFFER_SIZE, 0);
-            if (result > 0) {
-                count++;
-                buffer.resize(result);
-                std::cout << "Received message from server on port " << port << ": " << buffer << std::endl;
-            }
-            else if (result == 0) {
-                count++;
-                std::cout << "Connection closed by server" << std::endl;
-                break;
-            }
-            else {
-                count++;
-                error("Recv failed");
-            }
-            buffer.assign(BUFFER_SIZE, 0); // Clear buffer for next message
-        //}
-    }
-
-    // Cleanup
-    closesocket(connectSocket);
-    WSACleanup();
-}
-*/
