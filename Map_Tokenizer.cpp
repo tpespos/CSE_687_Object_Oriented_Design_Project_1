@@ -28,6 +28,7 @@ int Map_Tokenizer::runMap(string dllPathandName, string interFilePath, vector<st
 
 	typedef vector<string> (*MapDllFunc)(string, string);
 	// Load the DLL dynamically
+	dllPathandName = "C:\\Users\\tpesp\\source\\repos\\CSE-687-Object-Oriented-Design-Project-1\\DLLs\\mapDLL.dll";
 	std::wstring stemp = std::wstring(dllPathandName.begin(), dllPathandName.end());
 	LPCWSTR dllPN = stemp.c_str();
 	HINSTANCE hDLL = LoadLibrary(dllPN);

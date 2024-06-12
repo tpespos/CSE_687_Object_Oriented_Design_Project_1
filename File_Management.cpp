@@ -582,7 +582,8 @@ void File_Management::readConfigFileForDirectories()
 	int numberOfTimesThroughLoop = 0;
 	string line;
 	struct stat sb;
-	relativeConfigFileLocation = "Config_File\\Config.txt";
+	//relativeConfigFileLocation = "Config_File\\Config.txt";
+	relativeConfigFileLocation = "C:\\Users\\tpesp\\source\\repos\\CSE-687-Object-Oriented-Design-Project-1\\Config_File\\Config.txt";
 
 	ifstream file(relativeConfigFileLocation);
 	if (!file.is_open()) {
