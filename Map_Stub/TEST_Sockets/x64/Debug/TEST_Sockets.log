@@ -1,0 +1,5 @@
+﻿  TEST_Sockets.cpp
+C:\Users\tpesp\OneDrive\Documents\Masters\Classes\4_Spring_2024\2_Wed_Object_Oriented_Design\Projects\TEST_Sockets\Map_Stub\TEST_Sockets.cpp(151,68): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\tpesp\OneDrive\Documents\Masters\Classes\4_Spring_2024\2_Wed_Object_Oriented_Design\Projects\TEST_Sockets\Map_Stub\TEST_Sockets.cpp(207,68): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\tpesp\OneDrive\Documents\Masters\Classes\4_Spring_2024\2_Wed_Object_Oriented_Design\Projects\TEST_Sockets\Map_Stub\TEST_Sockets.cpp(236,64): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  TEST_Sockets.vcxproj -> C:\Users\tpesp\OneDrive\Documents\Masters\Classes\4_Spring_2024\2_Wed_Object_Oriented_Design\Projects\TEST_Sockets\Map_Stub\x64\Debug\TEST_Sockets.exe
